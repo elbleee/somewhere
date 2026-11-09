@@ -28,7 +28,7 @@ npm run build
 
 ## Current milestone
 
-Milestone 02 adds recursive collection ownership, breadcrumb navigation, per-collection theme settings, editable content records, and automatic local persistence in the browser. Production visual assets are a separate pipeline; the current surface and stationery treatments are placeholders, not final art.
+Milestone 02 adds recursive collection ownership, breadcrumb navigation, per-collection theme settings, editable content records, and automatic local persistence in the browser. Milestone 03 adds long-press object arrangement, grid reordering, size presets, move between collections, rename, duplicate, delete, and undo/redo for structural changes. Production visual assets are a separate pipeline; the current surface and stationery treatments are placeholders, not final art.
 
 ## Project structure
 
