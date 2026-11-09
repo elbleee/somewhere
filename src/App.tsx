@@ -116,7 +116,7 @@ function App() {
   const selectedObject = selectedId ? findObject(objects, selectedId) : undefined;
   const breadcrumbs = path.map(id => findObject(objects, id)).filter((item): item is SceneObject => Boolean(item));
   const currentTheme = activeCollection?.theme ?? "clean-textured";
-  const environmentClass = currentTheme === "surreal-atmospheric" ? "environment-space" : currentTheme === "minimal-natural" ? "environment-meadow" : currentTheme === "clean-textured" ? "environment-studio" : "";
+  const environmentClass = currentTheme === "surreal-atmospheric" ? "environment-space" : currentTheme === "minimal-natural" ? "environment-meadow" : currentTheme === "clean-textured" ? "environment-studio" : currentTheme === "vintage-ephemera" ? "environment-library" : currentTheme === "cinematic-realism" ? "environment-cabin" : currentTheme === "photoreal-desk" ? "environment-night" : "";
   const hourAngle = (clockNow.getHours() % 12) * 30 + clockNow.getMinutes() * .5;
   const minuteAngle = clockNow.getMinutes() * 6 + clockNow.getSeconds() * .1;
   const secondAngle = clockNow.getSeconds() * 6;
