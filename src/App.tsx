@@ -155,7 +155,7 @@ function App() {
       ...(kind === "collection" ? { children: [], theme: currentTheme } : {})
     };
     if (activeCollection) {
-      setObjects(tree => updateTree(tree, activeCollection.id, parent => ({
+      commit(updateTree(objects, activeCollection.id, parent => ({
         ...parent, children: [...(parent.children ?? []), item]
       })));
     } else {
