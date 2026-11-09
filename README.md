@@ -28,7 +28,7 @@ npm run build
 
 ## Current milestone
 
-Milestone 01 establishes the application shell, typed scene model, and initial desk interaction scaffold. Production visual assets are a separate pipeline; the current surface and stationery treatments are placeholders, not final art.
+Milestone 02 adds recursive collection ownership, breadcrumb navigation, per-collection theme settings, editable content records, and automatic local persistence in the browser. Production visual assets are a separate pipeline; the current surface and stationery treatments are placeholders, not final art.
 
 ## Project structure
 
