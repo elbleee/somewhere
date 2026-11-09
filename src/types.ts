@@ -18,15 +18,20 @@ export type DeskObjectKind =
   | "document"
   | "reminder";
 
+export type ObjectSize = "small" | "medium" | "large" | "wide";
+
 export interface SceneObject {
   id: string;
   kind: DeskObjectKind;
   title: string;
   subtitle?: string;
+  content?: string;
   position: number;
-  size: "small" | "medium" | "large" | "wide";
+  size: ObjectSize;
   theme?: ThemeId;
   children?: SceneObject[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Scene {
