@@ -110,6 +110,7 @@ function App() {
   const selectedObject = selectedId ? findObject(objects, selectedId) : undefined;
   const breadcrumbs = path.map(id => findObject(objects, id)).filter((item): item is SceneObject => Boolean(item));
   const currentTheme = activeCollection?.theme ?? "clean-textured";
+  const environmentClass = currentTheme === "surreal-atmospheric" ? "environment-space" : currentTheme === "minimal-natural" ? "environment-meadow" : currentTheme === "clean-textured" ? "environment-studio" : "";
 
   const visibleObjects = useMemo(() => currentObjects.filter(item =>
     !searchOpen || item.title.toLowerCase().includes(draft.toLowerCase())
@@ -191,7 +192,7 @@ function App() {
 
   return (
     <main className="app-shell">
-      <div className="desk-surface" aria-hidden="true" />
+      <div className={`desk-surface ${environmentClass}`} aria-hidden="true" />
       <header className="topbar">
         <div className="breadcrumb">
           {path.length > 0 && <button className="icon-button" onClick={() => navigateTo(path.length - 1)} aria-label="Back"><ArrowLeft /></button>}
