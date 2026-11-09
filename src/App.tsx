@@ -96,9 +96,15 @@ function App() {
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [undoStack, setUndoStack] = useState<Snapshot[]>([]);
   const [redoStack, setRedoStack] = useState<Snapshot[]>([]);
+  const [clockNow, setClockNow] = useState(() => new Date());
   const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const longPressed = useRef(false);
   const dragStart = useRef<{x:number;y:number}|null>(null);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setClockNow(new Date()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ objects }));
@@ -111,6 +117,9 @@ function App() {
   const breadcrumbs = path.map(id => findObject(objects, id)).filter((item): item is SceneObject => Boolean(item));
   const currentTheme = activeCollection?.theme ?? "clean-textured";
   const environmentClass = currentTheme === "surreal-atmospheric" ? "environment-space" : currentTheme === "minimal-natural" ? "environment-meadow" : currentTheme === "clean-textured" ? "environment-studio" : "";
+  const hourAngle = (clockNow.getHours() % 12) * 30 + clockNow.getMinutes() * .5;
+  const minuteAngle = clockNow.getMinutes() * 6 + clockNow.getSeconds() * .1;
+  const secondAngle = clockNow.getSeconds() * 6;
 
   const visibleObjects = useMemo(() => currentObjects.filter(item =>
     !searchOpen || item.title.toLowerCase().includes(draft.toLowerCase())
@@ -249,6 +258,7 @@ function App() {
       <p className="arrange-hint"><GripVertical size={12}/> Press and hold an object to arrange it</p><aside className="perimeter" aria-label="Desk accessories">
         <div className="perimeter-item"><img className="accessory-cup" src="./assets/accessories/coffee-cup.svg" alt="Ceramic coffee cup"/><span>take a breath</span></div>
         <div className="perimeter-item"><img className="accessory-plant" src="./assets/accessories/potted-plant.svg" alt="Potted plant"/><span>make room</span></div>
+        <div className="perimeter-item clock-perimeter" aria-label={`Local time ${clockNow.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}`}><div className="desk-clock"><img src="./assets/clocks/clock-face.svg" alt=""/><img className="clock-hand" src="./assets/clocks/hour-hand.svg" style={{transform:`rotate(${hourAngle}deg)`}} alt=""/><img className="clock-hand" src="./assets/clocks/minute-hand.svg" style={{transform:`rotate(${minuteAngle}deg)`}} alt=""/><img className="clock-hand" src="./assets/clocks/second-hand.svg" style={{transform:`rotate(${secondAngle}deg)`}} alt=""/></div><span>{clockNow.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}</span></div>
       </aside>
 
       {fan && <button className="scrim" onClick={() => setFan(null)} aria-label="Close options" />}
