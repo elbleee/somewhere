@@ -151,11 +151,13 @@ h1 { font:500 clamp(34px,5vw,52px)/1.05 "Playfair Display",serif; margin:0; }
 .object-collection::after{inset:8px 7px 10px;border:1px solid rgba(255,255,255,.16);border-radius:2px}
 .object-collection:nth-child(3n+2){background-image:url("./assets/folders/folder-sand.svg")}
 .object-collection:nth-child(3n){background-image:url("./assets/folders/folder-rose.svg")}
+.object-collection:nth-child(5n){background-image:url('./assets/folders/folder-cream.svg')}.object-collection:nth-child(7n){background-image:url('./assets/folders/folder-blue.svg')}.object-collection:nth-child(11n){background-image:url('./assets/folders/folder-olive.svg')}
 .object-collection .object-icon{margin-bottom:25px}.object-collection .object-title{font-size:22px;letter-spacing:-.02em}
 .object-collection .collection-enter{align-self:stretch;display:flex;justify-content:space-between;border-top:1px solid rgba(87,83,62,.2);padding-top:12px;color:rgba(76,76,57,.72);font-size:8px}
-.object-note{min-height:154px;border:0;background:url('./assets/papers/paper-lined.svg') center/100% 100% no-repeat;box-shadow:0 8px 18px rgba(25,15,8,.2);transform:rotate(-.45deg)}
+.object-note{min-height:154px;border:0;background:url('./assets/papers/sticky-butter.svg') center/100% 100% no-repeat;box-shadow:0 8px 18px rgba(25,15,8,.2);transform:rotate(-.45deg)}
 .object-note::before{inset:0;background:repeating-linear-gradient(0deg,rgba(116,94,65,.018) 0 1px,transparent 1px 3px);opacity:.65}
 .object-note .object-icon{margin-bottom:17px}.object-note .object-title{font-size:18px}
+.object-note:nth-child(4n+2){background-image:url('./assets/papers/sticky-sage.svg')}.object-note:nth-child(4n+3){background-image:url('./assets/papers/sticky-blue.svg')}.object-note:nth-child(4n){background-image:url('./assets/papers/sticky-rose.svg')}
 .object-checklist{min-height:164px;border:0;background:url('./assets/papers/paper-grid.svg') center/100% 100% no-repeat;box-shadow:0 8px 18px rgba(25,15,8,.18)}
 .object-checklist::before{left:0;right:0;top:0;height:8px;background:repeating-linear-gradient(90deg,rgba(114,94,70,.2) 0 1px,transparent 1px 9px);opacity:.6}
 .object-checklist .object-icon{color:#758064}
