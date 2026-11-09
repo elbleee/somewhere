@@ -153,20 +153,30 @@ h1 { font:500 clamp(34px,5vw,52px)/1.05 "Playfair Display",serif; margin:0; }
 .object-collection:nth-child(3n){background-image:url("./assets/folders/folder-rose.svg")}
 .object-collection .object-icon{margin-bottom:25px}.object-collection .object-title{font-size:22px;letter-spacing:-.02em}
 .object-collection .collection-enter{align-self:stretch;display:flex;justify-content:space-between;border-top:1px solid rgba(87,83,62,.2);padding-top:12px;color:rgba(76,76,57,.72);font-size:8px}
-.object-note{min-height:154px;border:1px solid rgba(111,94,70,.18);background:linear-gradient(90deg,transparent 0 23px,rgba(177,111,91,.18) 23px 24px,transparent 24px),repeating-linear-gradient(180deg,transparent 0 27px,rgba(112,139,151,.13) 27px 28px),linear-gradient(145deg,#fffdf7,#f2ecdf);box-shadow:inset 0 0 22px rgba(132,111,77,.05),0 2px 3px rgba(25,15,8,.12),0 10px 17px rgba(25,15,8,.2);transform:rotate(-.45deg)}
+.object-note{min-height:154px;border:0;background:url('./assets/papers/paper-lined.svg') center/100% 100% no-repeat;box-shadow:0 8px 18px rgba(25,15,8,.2);transform:rotate(-.45deg)}
 .object-note::before{inset:0;background:repeating-linear-gradient(0deg,rgba(116,94,65,.018) 0 1px,transparent 1px 3px);opacity:.65}
 .object-note .object-icon{margin-bottom:17px}.object-note .object-title{font-size:18px}
-.object-checklist{min-height:164px;border:1px solid rgba(111,94,70,.2);background:linear-gradient(145deg,#fbf7ed,#eae2d3)}
+.object-checklist{min-height:164px;border:0;background:url('./assets/papers/paper-grid.svg') center/100% 100% no-repeat;box-shadow:0 8px 18px rgba(25,15,8,.18)}
 .object-checklist::before{left:0;right:0;top:0;height:8px;background:repeating-linear-gradient(90deg,rgba(114,94,70,.2) 0 1px,transparent 1px 9px);opacity:.6}
 .object-checklist .object-icon{color:#758064}
 .object-photo{min-height:168px;padding:12px 12px 18px;background:linear-gradient(145deg,#fffdf8,#e9e1d4);border:1px solid rgba(83,67,49,.2);transform:rotate(.55deg)}
 .object-photo::before{inset:11px 11px 42px;background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 45%),linear-gradient(145deg,#9eaa99,#d2c7aa 48%,#7b8a78);box-shadow:inset 0 0 0 1px rgba(65,61,48,.12)}
 .object-photo .object-icon{margin:0 0 0 auto;color:#fffdf8}.object-photo .object-title{margin-top:auto;font-size:14px}.object-photo .object-subtitle{font-size:9px}
 .object-link{min-height:132px;border:1px solid rgba(112,93,70,.2);background:linear-gradient(135deg,#f5f1e8,#e5e1d6)}.object-link .object-icon{color:#7c8b82}
-.object-document{min-height:168px;margin-left:5px;background:linear-gradient(145deg,#fffdf8,#eee8dd)}
+.object-document{min-height:168px;margin-left:5px;background:url('./assets/papers/paper-blank.svg') center/100% 100% no-repeat;box-shadow:0 8px 18px rgba(25,15,8,.18)}
 .object-document::before{left:-6px;top:5px;bottom:-5px;width:100%;border:1px solid rgba(108,91,69,.16);background:#e8e0d3;box-shadow:0 4px 8px rgba(25,15,8,.08)}
 .object-document .object-icon{color:#a18a6d}
-.object-reminder{min-height:138px;border:1px solid rgba(132,108,70,.2);background:linear-gradient(145deg,#f4ead4,#e7d8b9)}.object-reminder .object-icon{color:#a27e4d}
+.object-reminder{min-height:138px;border:0;background:url('./assets/papers/paper-reminder.svg') center/100% 100% no-repeat;box-shadow:0 8px 18px rgba(25,15,8,.18)}.object-reminder .object-icon{color:#a27e4d}
 .desk-object.size-small{grid-column:span 1;min-height:124px;padding:16px}.desk-object.size-medium{grid-column:span 1;min-height:158px}.desk-object.size-large{grid-column:span 1;min-height:196px}.desk-object.size-wide{grid-column:span 2;min-height:148px}.desk-object.size-wide.object-collection{min-height:178px}
 .desk-object:focus-visible{outline:2px solid #e5d2ae;outline-offset:4px}
 @media(max-width:700px){.desk-object.size-small{min-height:116px}.desk-object.size-medium{min-height:148px}.desk-object.size-large{min-height:178px}.desk-object.size-wide{min-height:138px}.object-collection{padding:29px 17px 17px}.object-collection .object-title{font-size:19px}}
+
+/* Reusable stationery assets: keep each object category visually distinct. */
+.object-note::before,.object-checklist::before,.object-document::before,.object-reminder::before{display:none}
+.object-note::after,.object-checklist::after,.object-document::after,.object-reminder::after{inset:7px;border:1px solid rgba(111,94,70,.10)}
+.object-checklist .object-icon{margin-top:8px}
+.object-document::before{display:block;left:-6px;top:5px;bottom:-5px;width:100%;background:#e8e0d3;border:1px solid rgba(108,91,69,.16);z-index:-2}
+.perimeter-item img{display:block;object-fit:contain;filter:drop-shadow(0 5px 6px rgba(20,12,7,.22))}
+.perimeter-item .accessory-cup{width:45px;height:48px}
+.perimeter-item .accessory-plant{width:48px;height:58px}
+.perimeter-item .accessory-pen{width:74px;height:28px}
