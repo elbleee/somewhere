@@ -245,7 +245,7 @@ function App() {
         </div>
       </section>
 
-      <aside className="perimeter">
+      <p className="arrange-hint"><GripVertical size={12}/> Press and hold an object to arrange it</p><aside className="perimeter">
         <div className="perimeter-item"><span className="coffee-mark">◒</span><span>take a breath</span></div>
         <div className="perimeter-item"><Lightbulb size={17} /><span>make room</span></div>
       </aside>
@@ -269,8 +269,8 @@ function App() {
       )}
 
       <nav className="tool-dock" aria-label="Desk tools">
-        <button className="icon-button" aria-label="Undo" title="Undo (coming next milestone)"><Undo2 /></button>
-        <button className="icon-button" aria-label="Redo" title="Redo (coming next milestone)"><Redo2 /></button>
+        <button className="icon-button" aria-label="Undo" onClick={undo} disabled={!undoStack.length}><Undo2 /></button>
+        <button className="icon-button" aria-label="Redo" onClick={redo} disabled={!redoStack.length}><Redo2 /></button>
         <span className="dock-spacer" />
         <button className={`icon-button ${fan === "customize" ? "selected" : ""}`} onClick={() => setFan(fan === "customize" ? null : "customize")} aria-label="Customize"><Paintbrush2 /></button>
         <button className={`add-button ${fan === "add" ? "selected" : ""}`} onClick={() => setFan(fan === "add" ? null : "add")} aria-label="Add"><Plus /></button>
