@@ -19,10 +19,9 @@ button { color: inherit; }
 .desk-surface {
   position: fixed; inset: 0; z-index: -2;
   background:
-    linear-gradient(90deg, rgba(20,12,7,.12), transparent 25%, rgba(20,12,7,.08) 78%, rgba(20,12,7,.18)),
-    repeating-linear-gradient(2deg, rgba(255,255,255,.025) 0 1px, transparent 1px 7px),
-    repeating-linear-gradient(91deg, #785338 0 3px, #805b3c 4px, #6f4b31 8px, #8a6342 15px, #745034 22px);
-  filter: saturate(.78);
+    linear-gradient(90deg, rgba(20,12,7,.13), transparent 18%, rgba(20,12,7,.04) 54%, rgba(20,12,7,.16)),
+    url("./assets/desk-surfaces/walnut-grain.svg") center center / cover no-repeat;
+  filter: saturate(.88);
 }
 .topbar { height: 68px; padding: 0 5vw; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.12); color:#f5eee4; background:rgba(31,22,16,.22); backdrop-filter:blur(12px); }
 .breadcrumb, .top-actions { display:flex; align-items:center; gap:13px; }
