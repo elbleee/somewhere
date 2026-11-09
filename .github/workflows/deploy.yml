@@ -1,5 +1,6 @@
 name: Deploy Somewhere to GitHub Pages
 # Public repository deployment
+# Pages source configured to GitHub Actions
 
 on:
   push:
