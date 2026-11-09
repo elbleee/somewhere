@@ -9,8 +9,19 @@ Production art is stored by reusable layer, not baked into full-screen mockups. 
 - `environments/meadow.svg` — garden/yard direction.
 - `environments/outer-space.svg` — Ideas direction.
 - `environments/studio.svg` — Work direction.
+- `environments/library.svg` — warm library scene.
+- `environments/cabin.svg` — cinematic cabin interior.
+- `environments/night-sky.svg` — night landscape and moon.
 
 These are scene starting points, not yet wired to collection rendering.
+
+## Clocks
+- `clocks/clock-face.svg`
+- `clocks/hour-hand.svg`
+- `clocks/minute-hand.svg`
+- `clocks/second-hand.svg`
+
+Clock face and hands are separate layers. The desk clock reads the device's local time.
 
 ## Folders
 - `folders/folder-sage.svg`
