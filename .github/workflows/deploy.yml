@@ -1,4 +1,5 @@
 name: Deploy Somewhere to GitHub Pages
+# Public repository deployment
 
 on:
   push:
