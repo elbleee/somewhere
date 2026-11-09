@@ -159,7 +159,7 @@ function App() {
         ...parent, children: [...(parent.children ?? []), item]
       })));
     } else {
-      setObjects(tree => [...tree, item]);
+      commit([...objects, item]);
     }
     setFan(null);
     if (kind !== "collection") setActiveNoteId(item.id);
@@ -232,10 +232,10 @@ function App() {
           {visibleObjects.map(item => (
             <button
               key={item.id}
-              className={`desk-object object-${item.kind} size-${item.size}`}
-              onClick={() => item.kind === "collection" ? navigateInto(item) : setActiveNoteId(item.id)}
+              className={`desk-object object-${item.kind} size-${item.size} ${draggingId===item.id?"is-dragging":""}`} data-object-id={item.id} onPointerDown={event=>startPress(event,item.id)} onPointerMove={movePress} onPointerUp={endPress} onPointerCancel={endPress} onContextMenu={event=>{event.preventDefault();setSelectedId(item.id);}}
+              onClick={() => { if(longPressed.current){longPressed.current=false;return;} item.kind === "collection" ? navigateInto(item) : setActiveNoteId(item.id); }}
             >
-              <span className="object-icon">{iconFor(item.kind)}</span>
+              <span className="object-grip"><GripVertical size={13}/></span><span className="object-icon">{iconFor(item.kind)}</span>
               <span className="object-title">{item.title}</span>
               <span className="object-subtitle">{item.subtitle}</span>
               {item.kind === "collection" && <span className="collection-enter">{item.children?.length ?? 0} ITEMS · OPEN SPACE ↗</span>}
