@@ -23,6 +23,12 @@ button { color: inherit; }
     url("./assets/desk-surfaces/walnut-grain.svg") center center / cover no-repeat;
   filter: saturate(.88);
 }
+/* Collection environments replace the desk surface while a collection is open. */
+.desk-surface.environment-space{background:linear-gradient(180deg,rgba(11,18,34,.12),rgba(12,19,32,.3)),url("./assets/environments/outer-space.svg") center/cover no-repeat;filter:saturate(.88)}
+.desk-surface.environment-meadow{background:linear-gradient(180deg,rgba(33,49,30,.05),rgba(37,53,33,.2)),url("./assets/environments/meadow.svg") center/cover no-repeat;filter:saturate(.9)}
+.desk-surface.environment-studio{background:linear-gradient(180deg,rgba(49,39,27,.08),rgba(49,39,27,.18)),url("./assets/environments/studio.svg") center/cover no-repeat;filter:saturate(.82)}
+.desk-surface.environment-space~.topbar,.desk-surface.environment-meadow~.topbar,.desk-surface.environment-studio~.topbar{background:rgba(27,25,23,.22)}
+
 .topbar { height: 68px; padding: 0 5vw; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.12); color:#f5eee4; background:rgba(31,22,16,.22); backdrop-filter:blur(12px); }
 .breadcrumb, .top-actions { display:flex; align-items:center; gap:13px; }
 .brand-mark { font-family:"Playfair Display",serif; font-size:27px; color:#e8d5b6; }
