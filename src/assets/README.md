@@ -25,12 +25,17 @@ Folder artwork contains no labels. Collection names and counts remain live app t
 - `papers/paper-grid.svg`
 - `papers/paper-kraft.svg`
 - `papers/paper-reminder.svg`
+- `papers/polaroid-frame.svg`
 
 ## Accessories
 - `accessories/coffee-cup.svg`
 - `accessories/potted-plant.svg`
 - `accessories/brass-pen.svg`
 - `accessories/brass-paperclip.svg`
+- `accessories/brass-binder-clip.svg`
+- `accessories/brass-pushpin.svg`
+- `accessories/washi-tape.svg`
+- `accessories/fern-frond.svg`
 
 ## Asset rules
 - No text baked into reusable objects.
