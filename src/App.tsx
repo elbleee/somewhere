@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft, Search, Plus, Paintbrush2, Undo2, Redo2,
   Folder, Lightbulb, Image as ImageIcon, CheckSquare, FileText,
-  Link as LinkIcon, Clock3, X, ChevronRight, Home, Layers3
+  Link as LinkIcon, Clock3, X, ChevronRight, Home, Layers3, Copy, Trash2, Pencil, Move, GripVertical
 } from "lucide-react";
-import type { DeskObjectKind, SceneObject, ThemeId } from "./types";
+import type { DeskObjectKind, SceneObject, ThemeId, ObjectSize } from "./types";
 
 const STORAGE_KEY = "somewhere.workspace.v1";
 
@@ -79,6 +79,10 @@ function iconFor(kind: DeskObjectKind) {
   }
 }
 
+type Snapshot = { objects: SceneObject[]; path: string[] };
+function cloneData<T,>(value: T): T { return JSON.parse(JSON.stringify(value)) as T; }
+function removeTree(objects: SceneObject[], id: string): SceneObject[] { return objects.filter(item => item.id !== id).map(item => item.children ? { ...item, children: removeTree(item.children, id) } : item); }
+function containsObject(item: SceneObject, id: string): boolean { return item.id === id || Boolean(item.children?.some(child => containsObject(child, id))); }
 function App() {
   const [objects, setObjects] = useState<SceneObject[]>(() => readWorkspace().objects);
   const [path, setPath] = useState<string[]>([]);
@@ -87,6 +91,14 @@ function App() {
   const [draft, setDraft] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [themePickerOpen, setThemePickerOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [movePickerOpen, setMovePickerOpen] = useState(false);
+  const [draggingId, setDraggingId] = useState<string | null>(null);
+  const [undoStack, setUndoStack] = useState<Snapshot[]>([]);
+  const [redoStack, setRedoStack] = useState<Snapshot[]>([]);
+  const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const longPressed = useRef(false);
+  const dragStart = useRef<{x:number;y:number}|null>(null);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ objects }));
@@ -95,6 +107,7 @@ function App() {
   const activeCollection = path.length ? findObject(objects, path[path.length - 1]) : undefined;
   const currentObjects = activeCollection?.children ?? objects;
   const activeNote = activeNoteId ? findObject(objects, activeNoteId) : undefined;
+  const selectedObject = selectedId ? findObject(objects, selectedId) : undefined;
   const breadcrumbs = path.map(id => findObject(objects, id)).filter((item): item is SceneObject => Boolean(item));
   const currentTheme = activeCollection?.theme ?? "clean-textured";
 
@@ -115,6 +128,17 @@ function App() {
     setFan(null);
   };
 
+  const commit = (next: SceneObject[]) => { setUndoStack(stack => [...stack.slice(-39), { objects: cloneData(objects), path: [...path] }]); setRedoStack([]); setObjects(next); };
+  const updateItem = (id: string, patch: Partial<SceneObject>) => commit(updateTree(objects, id, item => ({ ...item, ...patch })));
+  const undo = () => { const previous = undoStack[undoStack.length-1]; if (!previous) return; setRedoStack(stack => [...stack,{objects:cloneData(objects),path:[...path]}]); setObjects(previous.objects); setPath(previous.path); setUndoStack(stack=>stack.slice(0,-1)); };
+  const redo = () => { const next = redoStack[redoStack.length-1]; if (!next) return; setUndoStack(stack=>[...stack,{objects:cloneData(objects),path:[...path]}]); setObjects(next.objects); setPath(next.path); setRedoStack(stack=>stack.slice(0,-1)); };
+  const renameSelected = () => { if (!selectedObject) return; const value = window.prompt("Rename item",selectedObject.title); if (value?.trim()) updateItem(selectedObject.id,{title:value.trim()}); setSelectedId(null); };
+  const duplicateSelected = () => { if (!selectedObject) return; const copy=cloneData(selectedObject); copy.id=crypto.randomUUID(); copy.title += " copy"; copy.position=currentObjects.length; const next=activeCollection?updateTree(objects,activeCollection.id,parent=>({...parent,children:[...(parent.children??[]),copy]})):[...objects,copy]; commit(next); setSelectedId(null); };
+  const deleteSelected = () => { if (!selectedObject || !window.confirm("Delete selected item?")) return; commit(removeTree(objects,selectedObject.id)); setSelectedId(null); };
+  const moveSelectedTo = (targetId: string | null) => { if (!selectedObject || targetId===selectedObject.id || (targetId && containsObject(selectedObject,targetId))) return; const moving=cloneData(selectedObject); let next=removeTree(objects,selectedObject.id); const target=targetId?findObject(next,targetId):undefined; if (targetId && (!target || target.kind!=="collection")) return; moving.position=target?(target.children?.length??0):next.length; next=target?updateTree(next,target.id,parent=>({...parent,children:[...(parent.children??[]),moving]})):[...next,moving]; commit(next); setMovePickerOpen(false); setSelectedId(null); };
+  const startPress = (event: React.PointerEvent<HTMLButtonElement>, id: string) => { longPressed.current=false; dragStart.current={x:event.clientX,y:event.clientY}; if(pressTimer.current)clearTimeout(pressTimer.current); pressTimer.current=setTimeout(()=>{longPressed.current=true;setDraggingId(id);setSelectedId(id);if(navigator.vibrate)navigator.vibrate(12);},520); };
+  const movePress = (event: React.PointerEvent<HTMLButtonElement>) => { if(!dragStart.current || draggingId)return; if(Math.hypot(event.clientX-dragStart.current.x,event.clientY-dragStart.current.y)>12 && pressTimer.current)clearTimeout(pressTimer.current); };
+  const endPress = (event: React.PointerEvent<HTMLButtonElement>) => { if(pressTimer.current)clearTimeout(pressTimer.current); if(draggingId){const target=document.elementFromPoint(event.clientX,event.clientY)?.closest("[data-object-id]") as HTMLElement|null;const targetId=target?.dataset.objectId;const ordered=[...currentObjects].sort((a,b)=>a.position-b.position);const from=ordered.findIndex(item=>item.id===draggingId),to=ordered.findIndex(item=>item.id===targetId);if(from>=0&&to>=0&&from!==to){const [picked]=ordered.splice(from,1);ordered.splice(to,0,picked);const positions=new Map(ordered.map((item,index)=>[item.id,index]));const arranged=currentObjects.map(item=>positions.has(item.id)?{...item,position:positions.get(item.id)!}:item);commit(activeCollection?updateTree(objects,activeCollection.id,parent=>({...parent,children:arranged})):arranged);} } setDraggingId(null);dragStart.current=null; };
   const addObject = (kind: DeskObjectKind) => {
     const labels: Record<DeskObjectKind, string> = {
       collection: "New collection", note: "New note", checklist: "New checklist",
@@ -252,6 +276,14 @@ function App() {
         <button className={`add-button ${fan === "add" ? "selected" : ""}`} onClick={() => setFan(fan === "add" ? null : "add")} aria-label="Add"><Plus /></button>
       </nav>
 
+      {selectedObject && <div className="note-overlay" onClick={()=>setSelectedId(null)}><section className="object-actions-sheet" onClick={e=>e.stopPropagation()}>
+        <button className="note-close icon-button" onClick={()=>setSelectedId(null)} aria-label="Close options"><X/></button>
+        <p className="eyebrow">OBJECT OPTIONS</p><h2>{selectedObject.title}</h2>
+        <div className="action-row"><button onClick={renameSelected}><Pencil/>Rename</button><button onClick={duplicateSelected}><Copy/>Duplicate</button><button onClick={()=>setMovePickerOpen(true)}><Move/>Move to</button></div>
+        <p className="action-label">SIZE</p><div className="size-options">{(["small","medium","large","wide"] as ObjectSize[]).map(size=><button key={size} className={selectedObject.size===size?"active":""} onClick={()=>{updateItem(selectedObject.id,{size});setSelectedId(null);}}>{size}</button>)}</div>
+        <button className="delete-action" onClick={deleteSelected}><Trash2/>Delete</button>
+      </section></div>}
+      {movePickerOpen && selectedObject && <div className="note-overlay" onClick={()=>setMovePickerOpen(false)}><section className="theme-sheet" onClick={e=>e.stopPropagation()}><button className="note-close icon-button" onClick={()=>setMovePickerOpen(false)} aria-label="Close"><X/></button><p className="eyebrow">MOVE OBJECT</p><h2>Choose a destination</h2><div className="theme-options"><button className="theme-option" onClick={()=>moveSelectedTo(null)}>My desk</button>{(function list(items:SceneObject[],depth=0):React.ReactNode[]{return items.flatMap(item=>item.kind==="collection"?[<button key={item.id} className="theme-option" style={{paddingLeft:14+depth*14}} disabled={containsObject(selectedObject,item.id)} onClick={()=>moveSelectedTo(item.id)}>{item.title}</button>,...(item.children?list(item.children,depth+1):[])]:[]);})(objects)}</div></section></div>}
       {themePickerOpen && (
         <div className="note-overlay" onClick={() => setThemePickerOpen(false)}>
           <section className="theme-sheet" onClick={e => e.stopPropagation()}>
