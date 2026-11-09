@@ -245,9 +245,9 @@ function App() {
         </div>
       </section>
 
-      <p className="arrange-hint"><GripVertical size={12}/> Press and hold an object to arrange it</p><aside className="perimeter">
-        <div className="perimeter-item"><span className="coffee-mark">◒</span><span>take a breath</span></div>
-        <div className="perimeter-item"><Lightbulb size={17} /><span>make room</span></div>
+      <p className="arrange-hint"><GripVertical size={12}/> Press and hold an object to arrange it</p><aside className="perimeter" aria-label="Desk accessories">
+        <div className="perimeter-item"><img className="accessory-cup" src="./assets/accessories/coffee-cup.svg" alt="Ceramic coffee cup"/><span>take a breath</span></div>
+        <div className="perimeter-item"><img className="accessory-plant" src="./assets/accessories/potted-plant.svg" alt="Potted plant"/><span>make room</span></div>
       </aside>
 
       {fan && <button className="scrim" onClick={() => setFan(null)} aria-label="Close options" />}
