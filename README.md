@@ -28,7 +28,7 @@ npm run build
 
 ## Current milestone
 
-Milestone 02 adds recursive collection ownership, breadcrumb navigation, per-collection theme settings, editable content records, and automatic local persistence in the browser. Milestone 03 adds long-press object arrangement, grid reordering, size presets, move between collections, rename, duplicate, delete, and undo/redo for structural changes. Milestone 04 introduces distinct visual treatments for folders, loose notes, checklists, photo prints, links, documents, and reminders, including layered folder tabs, paper rules, print borders, and object-specific shadows. Production visual assets are a separate pipeline; the current surface and stationery treatments are placeholders, not final art.
+Milestone 02 adds recursive collection ownership, breadcrumb navigation, per-collection theme settings, editable content records, and automatic local persistence in the browser. Milestone 03 adds long-press object arrangement, grid reordering, size presets, move between collections, rename, duplicate, delete, and undo/redo for structural changes. Milestone 04 introduced object-specific visual treatments. The asset-library milestone now adds reusable SVG folders (six finishes), sticky notes (four colors), lined/blank/grid/kraft/reminder paper, a Polaroid frame, coffee cup, potted plant, brass pen, brass paperclip, and a dedicated walnut-grain surface. Collection folders, notes, checklists, documents, reminders, photos, and perimeter accessories now reference independent assets where integrated. These are first-pass vector assets, not final photographic art.
 
 ## Project structure
 
