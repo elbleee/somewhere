@@ -5,6 +5,13 @@ Production art is stored by reusable layer, not baked into full-screen mockups. 
 ## Desk surfaces
 - `desk-surfaces/walnut-grain.svg` — current warm walnut vector base. The approved photographic walnut texture remains the target for the next surface upgrade.
 
+## Collection environments
+- `environments/meadow.svg` — garden/yard direction.
+- `environments/outer-space.svg` — Ideas direction.
+- `environments/studio.svg` — Work direction.
+
+These are scene starting points, not yet wired to collection rendering.
+
 ## Folders
 - `folders/folder-sage.svg`
 - `folders/folder-sand.svg`
