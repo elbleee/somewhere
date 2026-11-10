@@ -71,6 +71,15 @@ export const paperFinishes = [
   { id: "polaroid", label: "Polaroid frame", src: polaroidFrame, format: "photo" }
 ] as const;
 
+
+import deskLamp from "./accessories/desk-lamp.svg";
+import bookStack from "./accessories/book-stack.svg";
+import readingGlasses from "./accessories/reading-glasses.svg";
+import pencil from "./accessories/pencil.svg";
+import vase from "./accessories/vase.svg";
+import tapeDispenser from "./accessories/tape-dispenser.svg";
+import smallNotebook from "./accessories/small-notebook.svg";
+
 export const deskAccessories = [
   { id: "coffee-cup", label: "Coffee cup", src: coffeeCup, group: "ritual" },
   { id: "potted-plant", label: "Potted plant", src: pottedPlant, group: "organic" },
