@@ -16,6 +16,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  background: url("./assets/desk-surfaces/walnut-grain.svg") center center / cover no-repeat;
   background-position: center;
   background-size: cover;
 }
@@ -23,10 +24,15 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  min-height: 64px;
-  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 68px;
+  height: 68px;
   padding: 0 max(5vw, 18px);
-  background: rgba(42, 30, 22, .42);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  color: #f5eee4;
+  background: rgba(42, 30, 22, .32);
   backdrop-filter: blur(16px);
 }
 .workspace {
@@ -163,7 +169,7 @@
 .object-collection { min-height: 184px; }
 .object-content-collection {
   inset: 0;
-  padding: 48px 18px 16px;
+  padding: 55px 18px 16px;
 }
 .object-content-collection .object-icon { display: none; }
 .object-content-collection .object-title {
@@ -330,7 +336,7 @@
   .object-collection.size-small,
   .object-collection.size-medium,
   .object-collection.size-large { min-height: 174px; }
-  .object-content-collection { padding: 46px 16px 15px; }
+  .object-content-collection { padding: 56px 16px 15px; }
   .object-content-collection .object-title { font-size: 19px; }
   .object-content-collection .object-subtitle { font-size: 11px; }
   .collection-enter { padding-top: 8px; font-size: 7px; }
@@ -362,40 +368,37 @@
 }
 
 
-/* Material layer: the asset catalog textures sit between the object finish and live content. */
-.object-artwork { z-index: 0; }
-.object-material {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: block;
-  background-position: center;
-  background-repeat: repeat;
-  opacity: .16;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
-.object-material-checklist { background-size: 22px 22px; opacity: .38; }
-.object-material-reminder { background-size: 100% 26px; opacity: .28; background-repeat: repeat-y; }
-.object-material-photo { inset: 10px 10px 38px; background-size: 90px 90px; opacity: .1; }
-.object-content { z-index: 2; }
-.object-content-collection { padding-top: 35px; }
-.object-content-collection .collection-enter { margin-top: auto; }
-.object-content-photo .object-media { flex: 1 1 auto; min-height: 0; }
-.object-content-photo .object-title { flex: 0 0 auto; margin-top: 0; }
-.object-content-photo .object-subtitle { flex: 0 0 auto; }
-@media(max-width:700px) {
-  .object-grid { gap: 16px 13px; }
-  .object-collection { min-height: 0; aspect-ratio: 1.48 / 1; }
-  .object-note { min-height: 0; aspect-ratio: 1 / 1; }
-  .object-checklist { min-height: 0; aspect-ratio: .84 / 1; }
-  .object-photo { min-height: 0; aspect-ratio: .9 / 1; }
-  .object-document,.object-reminder { min-height: 0; aspect-ratio: .9 / 1; }
-  .object-link { min-height: 0; aspect-ratio: 1 / 1; }
-  .object-content-collection { padding: 31px 15px 13px; }
-  .object-content-collection .object-title { font-size: 18px; }
-  .object-content-collection .object-subtitle { font-size: 11px; }
-  .collection-enter { font-size: 6.5px; padding-top: 7px; }
-  .object-content-note,.object-content-checklist,.object-content-document,.object-content-reminder { padding: 15px; }
-  .object-content-photo { padding: 10px 10px 13px; }
+/* Header and surface were previously lost when the old stylesheet was replaced. */
+.breadcrumb,.top-actions{display:flex;align-items:center;gap:13px;min-width:0}
+.brand-home{width:30px;height:38px;flex:0 0 30px}
+.brand-mark{display:block;color:#e8d5b6;font:500 27px/1 "Playfair Display",Georgia,serif}
+.crumb-divider{color:rgba(255,245,232,.45);font-size:20px;font-weight:300}
+.crumb-current{color:#fff4e5;font-size:14px}
+.crumb-link{color:rgba(255,245,232,.7);font-size:13px}
+.top-actions{margin-left:auto}
+.top-actions .icon-button{color:#f5eee4}
+.desk-surface{background-image:url("./assets/desk-surfaces/walnut-grain.svg");background-position:center;background-size:cover;background-repeat:no-repeat}
+.desk-surface.lighting-morning::after{background:rgba(255,190,112,.10)}
+.desk-surface.lighting-afternoon::after{background:rgba(255,245,220,.025)}
+.desk-surface.lighting-evening::after{background:rgba(190,105,57,.17)}
+.desk-surface.lighting-night::after{background:rgba(13,22,49,.24)}
+.object-artwork{z-index:0}
+.object-material{position:absolute;inset:0;z-index:1;display:block;background-position:center;background-repeat:repeat;opacity:.16;mix-blend-mode:multiply;pointer-events:none}
+.object-material-checklist{background-size:22px 22px;opacity:.38}
+.object-material-reminder{background-size:100% 26px;opacity:.28;background-repeat:repeat-y}
+.object-material-photo{inset:10px 10px 38px;background-size:90px 90px;opacity:.1}
+.object-content{z-index:2}
+.object-content-photo .object-media{flex:1 1 auto;min-height:0}
+.object-content-photo .object-title,.object-content-photo .object-subtitle{flex:0 0 auto}
+@media(max-width:700px){
+ .topbar{display:flex;align-items:center;justify-content:space-between;height:58px;min-height:58px;padding:0 5vw}
+ .breadcrumb{display:flex;align-items:center;gap:8px;min-width:0;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+ .breadcrumb::-webkit-scrollbar{display:none}
+ .brand-home{width:27px;height:34px;flex-basis:27px}
+ .brand-mark{font-size:25px}
+ .crumb-divider{font-size:18px}
+ .crumb-current,.crumb-link{font-size:12px}
+ .top-actions{flex:0 0 auto;margin-left:8px}
+ .top-actions .icon-button{width:36px;height:36px}
+ .object-content-collection{padding:56px 15px 14px}
 }
