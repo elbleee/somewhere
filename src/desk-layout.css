@@ -1,0 +1,362 @@
+/* Somewhere desk presentation system
+   This file owns desk geometry and object composition.
+   Dialogs and editor controls remain in styles.css. */
+
+.app-shell {
+  min-height: 100svh;
+  min-height: 100vh;
+  overflow-x: clip;
+  overflow-y: visible;
+  isolation: isolate;
+  position: relative;
+  background: #38291f;
+}
+.desk-surface {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-position: center;
+  background-size: cover;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 64px;
+  height: auto;
+  padding: 0 max(5vw, 18px);
+  background: rgba(42, 30, 22, .42);
+  backdrop-filter: blur(16px);
+}
+.workspace {
+  width: min(1040px, 90vw);
+  margin: 0 auto;
+  padding: clamp(38px, 6vh, 68px) 0 34px;
+}
+.workspace-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 clamp(24px, 4vh, 38px);
+}
+.workspace-heading > div { min-width: 0; }
+.workspace-heading .eyebrow {
+  margin: 0 0 12px;
+  font-size: 10px;
+  letter-spacing: .22em;
+  color: rgba(245, 232, 211, .76);
+}
+.workspace-heading h1 {
+  margin: 0;
+  font: 500 clamp(40px, 6vw, 58px)/1.02 "Playfair Display", Georgia, serif;
+  color: #f8f0e5;
+}
+.workspace-heading .subheading {
+  margin: 12px 0 0;
+  font-size: clamp(14px, 2vw, 17px);
+  line-height: 1.4;
+  color: rgba(255, 245, 232, .78);
+}
+.date-stamp { flex: 0 0 auto; }
+
+.object-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: row;
+  align-items: start;
+  gap: clamp(16px, 2.2vw, 26px);
+}
+.desk-object {
+  --object-shadow: 0 5px 9px rgba(18, 12, 8, .16), 0 16px 28px rgba(18, 12, 8, .16);
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 184px;
+  padding: 0;
+  overflow: visible;
+  isolation: isolate;
+  border: 0;
+  border-radius: 2px;
+  background: transparent !important;
+  box-shadow: none;
+  color: #3d352c;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .18s ease, filter .18s ease;
+}
+.desk-object:hover { transform: translateY(-2px); }
+.desk-object:focus-visible { outline: 2px solid #ead9b9; outline-offset: 5px; }
+.desk-object.is-dragging { opacity: .55; transform: scale(.97); }
+.object-artwork {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0 7px 8px rgba(20, 12, 7, .2));
+  pointer-events: none;
+}
+.object-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 20px;
+  overflow: hidden;
+}
+.object-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin: 0 0 12px;
+  color: #7d745f;
+}
+.object-icon svg { width: 20px; height: 20px; stroke-width: 1.55; }
+.object-title {
+  display: block;
+  max-width: 100%;
+  margin: 0;
+  color: #3d352c;
+  font: 500 clamp(17px, 2vw, 21px)/1.14 "Playfair Display", Georgia, serif;
+  overflow-wrap: anywhere;
+}
+.object-subtitle {
+  display: block;
+  max-width: 100%;
+  margin: 6px 0 0;
+  color: #82766a;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.object-grip {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  color: rgba(75, 65, 51, .42);
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+.desk-object:hover .object-grip,
+.desk-object:focus-visible .object-grip { opacity: 1; }
+
+/* Folders: the folder SVG supplies the entire silhouette. Text is inset into its body. */
+.object-collection { min-height: 184px; }
+.object-content-collection {
+  inset: 0;
+  padding: 48px 18px 16px;
+}
+.object-content-collection .object-icon { display: none; }
+.object-content-collection .object-title {
+  margin: 0;
+  font-size: clamp(18px, 2.1vw, 23px);
+}
+.object-content-collection .object-subtitle { margin-top: 6px; }
+.collection-enter {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 9px;
+  border-top: 1px solid rgba(83, 77, 59, .22);
+  color: rgba(76, 76, 57, .72);
+  font-size: 8px;
+  line-height: 1.1;
+  letter-spacing: .13em;
+  white-space: nowrap;
+}
+
+/* Notes and documents: content remains inside the paper's safe area. */
+.object-note, .object-checklist, .object-document, .object-reminder {
+  min-height: 184px;
+}
+.object-content-note, .object-content-checklist,
+.object-content-document, .object-content-reminder {
+  padding: 18px;
+}
+.object-content-note .object-icon,
+.object-content-checklist .object-icon,
+.object-content-document .object-icon,
+.object-content-reminder .object-icon { margin-bottom: 17px; }
+.object-note .object-artwork,
+.object-checklist .object-artwork,
+.object-document .object-artwork,
+.object-reminder .object-artwork { filter: drop-shadow(0 6px 8px rgba(20, 12, 7, .17)); }
+.object-checklist .object-icon { color: #758064; }
+.object-document .object-icon { color: #9a866b; }
+.object-reminder .object-icon { color: #a27e4d; }
+
+/* Photos: frame, image well, and caption are three independent layers. */
+.object-photo { min-height: 184px; }
+.object-content-photo {
+  inset: 0;
+  padding: 13px 13px 17px;
+}
+.object-media {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 80px;
+  margin-bottom: 8px;
+  padding: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.12), transparent 44%),
+    linear-gradient(145deg, #9eaa99 0%, #d2c7aa 52%, #7b8a78 100%);
+  box-shadow: inset 0 0 0 1px rgba(65,61,48,.12);
+}
+.object-content-photo .object-icon { color: #fffdf8; margin: 0; }
+.object-content-photo .object-title { font-size: 15px; }
+.object-content-photo .object-subtitle { margin-top: 3px; font-size: 10px; }
+
+/* Links and empty states */
+.object-link { min-height: 150px; }
+.empty-space {
+  grid-column: 1 / -1;
+  padding: 30px;
+  color: rgba(255,245,232,.75);
+  text-align: center;
+}
+
+/* Accessories are desk objects in document flow, never fixed over the content. */
+.perimeter {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  width: min(1040px, 90vw);
+  margin: 8px auto 0;
+  padding: 8px 0 34px;
+  color: rgba(255,245,232,.7);
+  pointer-events: none;
+}
+.perimeter-item { display: flex; align-items: center; justify-content: center; min-width: 34px; }
+.perimeter-item img {
+  display: block;
+  max-width: 54px;
+  max-height: 54px;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 6px rgba(20,12,7,.22));
+}
+.desk-clock { position: relative; width: 58px; height: 58px; filter: drop-shadow(0 5px 8px rgba(20,12,7,.22)); }
+.desk-clock > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.desk-clock .clock-hand { transform-origin: 50% 50%; pointer-events: none; }
+.clock-perimeter { gap: 5px; align-items: center; }
+.clock-perimeter span { font-variant-numeric: tabular-nums; }
+
+/* Floating controls stay clear of the safe-area and page content can scroll above them. */
+.tool-dock {
+  position: fixed;
+  left: 50%;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 30;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 40px;
+  background: rgba(37,28,21,.82);
+  color: #f5eee4;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 35px rgba(0,0,0,.24);
+}
+.tool-dock .icon-button { width: 42px; height: 42px; }
+.tool-dock .add-button { width: 48px; height: 48px; border-radius: 50%; }
+.dock-spacer { width: 12px; }
+.workspace { padding-bottom: calc(105px + env(safe-area-inset-bottom)); }
+
+/* Keep menus and editors above the new desk composition. */
+.scrim { z-index: 40; }
+.fan-panel { z-index: 41; }
+.note-overlay { z-index: 50; }
+.object-actions-sheet { z-index: 51; }
+
+@media (max-width: 700px) {
+  .topbar {
+    min-height: 58px;
+    padding: 0 5vw;
+  }
+  .workspace {
+    width: 90vw;
+    padding-top: 38px;
+    padding-bottom: calc(112px + env(safe-area-inset-bottom));
+  }
+  .workspace-heading {
+    display: block;
+    margin-bottom: 28px;
+  }
+  .workspace-heading .eyebrow { margin-bottom: 10px; font-size: 9px; }
+  .workspace-heading h1 { font-size: clamp(42px, 11vw, 54px); }
+  .workspace-heading .subheading { margin-top: 10px; font-size: 15px; }
+  .date-stamp { display: none; }
+  .object-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 13px;
+  }
+  .desk-object,
+  .object-collection,
+  .object-note, .object-checklist, .object-document,
+  .object-reminder, .object-photo { min-height: 174px; }
+  .desk-object.size-small { min-height: 142px; }
+  .desk-object.size-medium { min-height: 164px; }
+  .desk-object.size-large { min-height: 180px; }
+  .desk-object.size-wide { grid-column: span 2; min-height: 154px; }
+  .object-collection.size-small,
+  .object-collection.size-medium,
+  .object-collection.size-large { min-height: 174px; }
+  .object-content-collection { padding: 46px 16px 15px; }
+  .object-content-collection .object-title { font-size: 19px; }
+  .object-content-collection .object-subtitle { font-size: 11px; }
+  .collection-enter { padding-top: 8px; font-size: 7px; }
+  .object-content-note, .object-content-checklist,
+  .object-content-document, .object-content-reminder { padding: 16px; }
+  .object-content-note .object-icon,
+  .object-content-checklist .object-icon,
+  .object-content-document .object-icon,
+  .object-content-reminder .object-icon { margin-bottom: 13px; }
+  .object-content-photo { padding: 11px 11px 15px; }
+  .object-media { min-height: 78px; margin-bottom: 7px; }
+  .object-content-photo .object-title { font-size: 14px; }
+  .perimeter {
+    width: 90vw;
+    margin-top: 8px;
+    padding-bottom: 28px;
+    gap: 12px;
+  }
+  .perimeter-item img { max-width: 44px; max-height: 44px; }
+  .desk-clock { width: 48px; height: 48px; }
+  .tool-dock {
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    gap: 5px;
+    padding: 7px 9px;
+  }
+  .tool-dock .icon-button { width: 38px; height: 38px; }
+  .tool-dock .add-button { width: 44px; height: 44px; }
+  .fan-panel { max-width: 94vw; overflow-x: auto; }
+}
