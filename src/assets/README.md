@@ -127,3 +127,17 @@ The six existing folder finish SVGs have been simplified to material artwork onl
 - Use `object-fit: fill` only for surfaces designed to stretch; preserve aspect ratio for stationery and accessories.
 - Use CSS masks with the neutral silhouettes when the finish needs to be recolored at runtime.
 - Use the catalog in `manifest.ts`; do not create ad-hoc duplicate asset imports.
+
+
+## Live finish customization
+
+The object options sheet now exposes the reusable finish catalog:
+
+- Collections can select any of the six folder finishes.
+- Notes can select sticky or sheet paper finishes.
+- Checklists, documents, and reminders can select sheet finishes.
+- Photos use the dedicated Polaroid frame.
+
+Selections are stored on each `SceneObject.appearance` record as stable asset IDs, not copied URLs. The renderer resolves those IDs through `manifest.ts`. Objects without an explicit choice receive a stable ID-based default so their appearance does not change when reordered.
+
+Theme environment names are resolved from `theme-system.ts`; the scene class mapping translates catalog names to the existing CSS environment classes.
