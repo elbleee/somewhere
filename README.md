@@ -37,3 +37,11 @@ Milestone 02 adds recursive collection ownership, breadcrumb navigation, per-col
 - `src/assets/` — layered production asset library
 - `src/types.ts` — shared scene and object types
 - `src/App.tsx` — initial desk experience
+
+## Asset integration and mobile fixes
+
+- The main desk always retains the walnut surface; collection themes select independent scene backgrounds.
+- Scene SVGs are first-pass illustrations, not photographic final art.
+- Accessories and the layered live clock are imported through Vite so deployed asset URLs resolve correctly under GitHub Pages' `/somewhere/` path.
+- Touch gestures no longer capture the pointer immediately, preserving ordinary vertical scrolling while keeping press-and-hold behavior.
+- A successful production build and iPhone visual regression check are still required before declaring this release verified.
