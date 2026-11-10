@@ -137,19 +137,21 @@ function App() {
     "--theme-texture-strength": String(themeStyle.textureStrength),
     "--theme-shadow-strength": String(themeStyle.shadowStrength)
   } as React.CSSProperties;
+  const stableAssetIndex = (id: string, length: number) =>
+    Array.from(id).reduce((total, character) => (total * 31 + character.charCodeAt(0)) >>> 0, 7) % length;
   const objectArtwork = (item: SceneObject) => {
     if (item.kind === "collection") {
       const finish = collectionFinishes.find(entry => entry.id === item.appearance?.finishId)
-        ?? collectionFinishes[item.position % collectionFinishes.length];
+        ?? collectionFinishes[stableAssetIndex(item.id, collectionFinishes.length)];
       return finish.src;
     }
-    const paperId = item.appearance?.paperId ?? (
-      item.kind === "note" ? "sticky-butter" :
-      item.kind === "checklist" ? "grid" :
-      item.kind === "photo" ? "polaroid" :
-      item.kind === "document" ? "blank" :
-      item.kind === "reminder" ? "reminder" : ""
-    );
+    const defaultPaperId = item.kind === "note"
+      ? ["sticky-butter", "sticky-sage", "sticky-blue", "sticky-rose"][stableAssetIndex(item.id, 4)]
+      : item.kind === "checklist" ? "grid"
+      : item.kind === "photo" ? "polaroid"
+      : item.kind === "document" ? "blank"
+      : item.kind === "reminder" ? "reminder" : "";
+    const paperId = item.appearance?.paperId ?? defaultPaperId;
     return paperFinishes.find(entry => entry.id === paperId)?.src;
   };
   const hourAngle = (clockNow.getHours() % 12) * 30 + clockNow.getMinutes() * .5;
