@@ -88,7 +88,14 @@ export const deskAccessories = [
   { id: "binder-clip", label: "Brass binder clip", src: brassBinderClip, group: "stationery" },
   { id: "pushpin", label: "Brass pushpin", src: brassPushpin, group: "stationery" },
   { id: "washi-tape", label: "Washi tape", src: washiTape, group: "stationery" },
-  { id: "fern-frond", label: "Fern frond", src: fernFrond, group: "organic" }
+  { id: "fern-frond", label: "Fern frond", src: fernFrond, group: "organic" },
+  { id: "desk-lamp", label: "Desk lamp", src: deskLamp, group: "lighting" },
+  { id: "book-stack", label: "Book stack", src: bookStack, group: "reading" },
+  { id: "reading-glasses", label: "Reading glasses", src: readingGlasses, group: "reading" },
+  { id: "pencil", label: "Pencil", src: pencil, group: "stationery" },
+  { id: "vase", label: "Vase", src: vase, group: "organic" },
+  { id: "tape-dispenser", label: "Tape dispenser", src: tapeDispenser, group: "stationery" },
+  { id: "small-notebook", label: "Small notebook", src: smallNotebook, group: "stationery" }
 ] as const;
 
 export const deskClock = {
