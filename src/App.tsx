@@ -101,7 +101,13 @@ function App() {
   const [lightingPickerOpen, setLightingPickerOpen] = useState(false);
   const [accessoryPickerOpen, setAccessoryPickerOpen] = useState(false);
   const [visibleAccessories, setVisibleAccessories] = useState<string[]>(() => {
-    try { const saved = localStorage.getItem("somewhere.accessories.v1"); return saved ? JSON.parse(saved) as string[] : ["coffee-cup","potted-plant"]; } catch { return ["coffee-cup","potted-plant"]; }
+    const starterAccessories = ["coffee-cup", "potted-plant", "book-stack", "desk-lamp", "reading-glasses"];
+    try {
+      const saved = localStorage.getItem("somewhere.accessories.v1");
+      if (!saved) return starterAccessories;
+      const parsed = JSON.parse(saved) as string[];
+      return [...new Set([...parsed, ...starterAccessories])];
+    } catch { return starterAccessories; }
   });
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [movePickerOpen, setMovePickerOpen] = useState(false);
