@@ -88,3 +88,42 @@ The current vector set is a functional placeholder library, not finished product
 - Redraw the folder and paper masters so shadow, edge, material, and color can be varied independently.
 - Refine the scene environments with stronger perspective, depth, and deliberately reserved content zones.
 - Expand accessory silhouettes while keeping the same object categories available in every theme.
+
+
+## Layered object architecture (current direction)
+
+Use three independent layers for desk objects:
+
+- **Silhouette:** geometry only, monochrome SVG in `silhouettes/`. Apply finish color/material in CSS or component styling.
+- **Material:** seamless or repeatable overlay in `materials/`. Texture must never define the object's geometry.
+- **Elevation:** one component-level shadow recipe. Do not bake shadows into the silhouette or finish artwork.
+
+This avoids the double-card / double-shadow problem and lets the same object take on a different theme without duplicating its shape.
+
+### Available neutral primitives
+
+- `silhouettes/folder.svg`
+- `silhouettes/paper-sheet.svg`
+- `silhouettes/sticky-note.svg`
+- `silhouettes/polaroid.svg`
+- `materials/paper-fiber.svg`
+- `materials/linen-weave.svg`
+- `materials/graph-paper.svg`
+- `materials/ruled-paper.svg`
+- `materials/walnut-highlight.svg`
+
+### Theme tokens
+
+`theme-system.ts` defines all nine themes as a complete set of palette, environment, material, lighting, texture, and shadow tokens. The default remains Clean & Textured. A collection can select its own theme independently of the main desk.
+
+### Folder finish cleanup
+
+The six existing folder finish SVGs have been simplified to material artwork only. Their drop shadows are now expected to come from the object component, not from inside the SVG. Keep the same rule for future finishes.
+
+### Implementation guardrails
+
+- A single object must have one silhouette and one elevation shadow.
+- Do not place a visible card/container behind a folder or paper object.
+- Use `object-fit: fill` only for surfaces designed to stretch; preserve aspect ratio for stationery and accessories.
+- Use CSS masks with the neutral silhouettes when the finish needs to be recolored at runtime.
+- Use the catalog in `manifest.ts`; do not create ad-hoc duplicate asset imports.
