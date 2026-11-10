@@ -294,13 +294,27 @@ function App() {
           {visibleObjects.map(item => (
             <button
               key={item.id}
-              className={`desk-object object-${item.kind} size-${item.size} ${draggingId===item.id?"is-dragging":""}`} style={objectArtwork(item) ? { backgroundImage: `url("${objectArtwork(item)}")` } : undefined} data-object-id={item.id} onPointerDown={event=>startPress(event,item.id)} onPointerMove={movePress} onPointerUp={endPress} onPointerCancel={() => {if(pressTimer.current)clearTimeout(pressTimer.current);dragStart.current=null;setDraggingId(null);}} onContextMenu={event=>{event.preventDefault();setSelectedId(item.id);}}
+              className={`desk-object object-${item.kind} size-${item.size} ${draggingId===item.id?"is-dragging":""}`}
+              data-object-id={item.id}
+              onPointerDown={event=>startPress(event,item.id)}
+              onPointerMove={movePress}
+              onPointerUp={endPress}
+              onPointerCancel={() => {if(pressTimer.current)clearTimeout(pressTimer.current);dragStart.current=null;setDraggingId(null);}}
+              onContextMenu={event=>{event.preventDefault();setSelectedId(item.id);}}
               onClick={() => { if(longPressed.current){longPressed.current=false;return;} item.kind === "collection" ? navigateInto(item) : setActiveNoteId(item.id); }}
             >
-              <span className="object-grip"><GripVertical size={13}/></span><span className="object-icon">{iconFor(item.kind)}</span>
-              <span className="object-title">{item.title}</span>
-              <span className="object-subtitle">{item.subtitle}</span>
-              {item.kind === "collection" && <span className="collection-enter">{item.children?.length ?? 0} ITEMS · OPEN SPACE ↗</span>}
+              <span className="object-artwork" aria-hidden="true" style={objectArtwork(item) ? { backgroundImage: `url("${objectArtwork(item)}")` } : undefined} />
+              <span className="object-grip"><GripVertical size={13}/></span>
+              <span className={`object-content object-content-${item.kind}`}>
+                {item.kind === "photo" ? (
+                  <span className="object-media"><span className="object-icon">{iconFor(item.kind)}</span></span>
+                ) : (
+                  <span className="object-icon">{item.kind === "collection" ? null : iconFor(item.kind)}</span>
+                )}
+                <span className="object-title">{item.title}</span>
+                <span className="object-subtitle">{item.subtitle}</span>
+                {item.kind === "collection" && <span className="collection-enter">{item.children?.length ?? 0} ITEMS · OPEN SPACE ↗</span>}
+              </span>
             </button>
           ))}
           {visibleObjects.length === 0 && <div className="empty-space">Nothing here yet. Use + to put something down.</div>}
