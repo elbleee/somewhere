@@ -6,10 +6,10 @@
  */
 import walnutSurface from "./desk-surfaces/walnut-grain.svg";
 
-import folderSage from "./folders/folder-sage-production.webp";
-import folderSand from "./folders/folder-sand-production.webp";
-import folderRose from "./folders/folder-rose-production.webp";
-import folderCream from "./folders/folder-linen-production.webp";
+import folderSage from "./folders/folder-sage.svg";
+import folderSand from "./folders/folder-sand.svg";
+import folderRose from "./folders/folder-rose.svg";
+import folderCream from "./folders/folder-cream.svg";
 
 
 
