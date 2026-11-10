@@ -356,3 +356,40 @@ h1 { font:500 clamp(34px,5vw,52px)/1.05 "Playfair Display",serif; margin:0; }
  .finish-options{gap:7px}
  .paper-finish-options{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
+
+
+/* Accessory library: user-selected desk perimeter objects. */
+.accessory-sheet{max-height:82svh;overflow-y:auto}
+.accessory-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:20px}
+.accessory-options button{
+  min-width:0;display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border:1px solid rgba(80,62,44,.16);border-radius:7px;
+  background:rgba(255,255,255,.36);color:var(--theme-ink);text-align:left;
+  font-size:11px;cursor:pointer;
+}
+.accessory-options button.active{border-color:var(--theme-accent);background:color-mix(in srgb,var(--theme-paper) 78%,var(--theme-accent))}
+.accessory-swatch{width:48px;height:42px;flex:0 0 48px;display:grid;place-items:center}
+.accessory-swatch img{max-width:100%;max-height:100%;object-fit:contain}
+.accessory-check{margin-left:auto;color:var(--theme-accent);font-size:16px}
+.perimeter-item img{max-width:68px;max-height:60px;object-fit:contain;filter:drop-shadow(0 5px 5px rgba(15,10,6,.2))}
+.perimeter-item.accessory-reading-glasses img{width:68px}
+.perimeter-item.accessory-pencil img{width:64px}
+.perimeter-item.accessory-book-stack img{width:58px}
+.perimeter-item.accessory-desk-lamp img{width:48px}
+.perimeter-item.accessory-vase img{width:40px}
+.perimeter-item.accessory-tape-dispenser img{width:52px}
+.perimeter-item.accessory-small-notebook img{width:42px}
+@media(max-width:700px){
+ .perimeter{
+   display:flex;position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));
+   gap:10px;align-items:center;justify-content:flex-start;overflow-x:auto;
+   max-width:calc(100vw - 24px);padding:5px 8px;z-index:8;
+   scrollbar-width:none;pointer-events:none;
+ }
+ .perimeter::-webkit-scrollbar{display:none}
+ .perimeter-item{flex:0 0 auto;min-width:34px;justify-content:center}
+ .perimeter-item img{max-width:42px;max-height:42px}
+ .perimeter-item span{display:none}
+ .tool-dock{z-index:20}
+ .accessory-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
