@@ -154,3 +154,13 @@ The six scene masters have been refined at a shared 1440×1100 viewBox:
 - Night sky: moonlight, sparse stars and low layered horizon.
 
 Composition keeps the visual focal points toward the edges or upper-right, leaving the central working area quieter for the collection's objects. These remain scalable vector scene illustrations, not photographic backgrounds. Keep object readability ahead of decorative detail.
+
+
+## Independent collection environments
+
+Collections now support an optional `environment` field separate from their `theme`:
+- Missing field: inherit the selected theme's default environment.
+- Explicit environment ID: use that scene regardless of theme.
+- Explicit `null`: use the desk surface / no scene, even if the theme normally supplies one.
+
+This preserves sensible defaults for existing collections while allowing independent combinations. Environment selection is exposed through Customize → Environment and is saved on the collection record.
