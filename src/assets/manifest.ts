@@ -6,12 +6,12 @@
  */
 import walnutSurface from "./desk-surfaces/walnut-grain.svg";
 
-import folderSage from "./folders/folder-sage.svg";
-import folderSand from "./folders/folder-sand.svg";
-import folderRose from "./folders/folder-rose.svg";
-import folderCream from "./folders/folder-cream.svg";
-import folderBlue from "./folders/folder-blue.svg";
-import folderOlive from "./folders/folder-olive.svg";
+import folderSage from "./folders/folder-sage-production.webp";
+import folderSand from "./folders/folder-sand-production.webp";
+import folderRose from "./folders/folder-rose-production.webp";
+import folderCream from "./folders/folder-linen-production.webp";
+
+
 
 import stickyButter from "./papers/sticky-butter.svg";
 import stickySage from "./papers/sticky-sage.svg";
@@ -50,12 +50,10 @@ export const deskSurfaces = {
 } as const;
 
 export const collectionFinishes = [
+  { id: "linen", label: "Natural linen", src: folderCream, family: "neutral" },
   { id: "sage", label: "Sage", src: folderSage, family: "natural" },
-  { id: "sand", label: "Sand", src: folderSand, family: "neutral" },
-  { id: "rose", label: "Rose", src: folderRose, family: "warm" },
-  { id: "cream", label: "Cream", src: folderCream, family: "neutral" },
-  { id: "blue", label: "Blue", src: folderBlue, family: "cool" },
-  { id: "olive", label: "Olive", src: folderOlive, family: "natural" }
+  { id: "sand", label: "Sand", src: folderSand, family: "warm" },
+  { id: "rose", label: "Dusty rose", src: folderRose, family: "warm" }
 ] as const;
 
 export const paperFinishes = [
