@@ -418,3 +418,24 @@ h1 { font:500 clamp(34px,5vw,52px)/1.05 "Playfair Display",serif; margin:0; }
  .environment-options{grid-template-columns:1fr}
  .environment-options>button:first-child{grid-column:auto}
 }
+
+
+/* Per-collection ambient lighting. Keep the scene art intact and tint only its atmosphere. */
+.desk-surface::after{content:"";position:absolute;inset:0;pointer-events:none;transition:background-color 1.2s ease}
+.desk-surface.lighting-morning::after{background:rgba(255,190,112,.10)}
+.desk-surface.lighting-afternoon::after{background:rgba(255,245,220,.025)}
+.desk-surface.lighting-evening::after{background:rgba(190,105,57,.17)}
+.desk-surface.lighting-night::after{background:rgba(13,22,49,.32)}
+.lighting-sheet{max-height:82svh;overflow-y:auto}
+.lighting-options{display:grid;gap:8px;margin-top:18px}
+.lighting-options>button{display:flex;align-items:center;gap:12px;min-height:62px;padding:10px 13px;border:1px solid rgba(80,62,44,.18);border-radius:7px;background:rgba(255,255,255,.45);color:var(--theme-ink);text-align:left;cursor:pointer}
+.lighting-options>button.active{border-color:var(--theme-accent);background:color-mix(in srgb,var(--theme-paper) 78%,var(--theme-accent))}
+.lighting-options strong{display:block;font-size:12px;font-weight:600}
+.lighting-options small{display:block;margin-top:4px;color:var(--theme-muted-ink);font-size:10px}
+.lighting-dot{width:28px;height:28px;flex:0 0 28px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.lighting-dot-auto{background:conic-gradient(#e9b66c,#8a9ab4,#d8a078,#e9b66c)}
+.lighting-dot-morning{background:linear-gradient(135deg,#f9d99b,#df9b67)}
+.lighting-dot-afternoon{background:linear-gradient(135deg,#fff3cb,#d6d8ce)}
+.lighting-dot-evening{background:linear-gradient(135deg,#d58b5d,#71536a)}
+.lighting-dot-night{background:linear-gradient(135deg,#34476d,#182238)}
+.lighting-selected{margin-left:auto;color:var(--theme-accent);font-size:10px}
