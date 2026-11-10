@@ -1,4 +1,4 @@
-import type { ThemeId } from "../../types";
+import type { ThemeId } from "../types";
 
 export type ThemeTokens = {
   label: string;
