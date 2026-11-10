@@ -98,6 +98,7 @@ function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [themePickerOpen, setThemePickerOpen] = useState(false);
   const [environmentPickerOpen, setEnvironmentPickerOpen] = useState(false);
+  const [lightingPickerOpen, setLightingPickerOpen] = useState(false);
   const [accessoryPickerOpen, setAccessoryPickerOpen] = useState(false);
   const [visibleAccessories, setVisibleAccessories] = useState<string[]>(() => {
     try { const saved = localStorage.getItem("somewhere.accessories.v1"); return saved ? JSON.parse(saved) as string[] : ["coffee-cup","potted-plant"]; } catch { return ["coffee-cup","potted-plant"]; }
@@ -134,6 +135,12 @@ function App() {
   const themeStyle = themeTokens[currentTheme];
   const selectedEnvironment = activeCollection?.environment !== undefined ? activeCollection.environment : themeStyle.environment;
   const environmentClass = !activeCollection || !selectedEnvironment ? "" : `environment-${selectedEnvironment === "outer-space" ? "space" : selectedEnvironment === "night-sky" ? "night" : selectedEnvironment}`;
+  const lightingMode = activeCollection?.lightingMode ?? "auto";
+  const localHour = clockNow.getHours();
+  const effectiveLighting = lightingMode === "auto"
+    ? localHour >= 5 && localHour < 11 ? "morning" : localHour >= 11 && localHour < 17 ? "afternoon" : localHour >= 17 && localHour < 21 ? "evening" : "night"
+    : lightingMode;
+  const lightingClass = activeCollection ? `lighting-${effectiveLighting}` : "";
   const themeVariables = {
     "--theme-paper": themeStyle.palette.paper,
     "--theme-paper-edge": themeStyle.palette.paperEdge,
@@ -246,7 +253,7 @@ function App() {
 
   return (
     <main className={`app-shell theme-${currentTheme}`} style={themeVariables}>
-      <div className={`desk-surface ${environmentClass}`} aria-hidden="true" />
+      <div className={`desk-surface ${environmentClass} ${lightingClass}`} aria-hidden="true" />
       <header className="topbar">
         <div className="breadcrumb">
           {path.length > 0 && <button className="icon-button" onClick={() => navigateTo(path.length - 1)} aria-label="Back"><ArrowLeft /></button>}
@@ -322,7 +329,7 @@ function App() {
         <div className="fan-panel customize-panel">
           <button className="fan-choice" onClick={() => { setThemePickerOpen(true); setFan(null); }}><span><Paintbrush2 size={18} /></span><small>Theme style</small></button>
           {["Paper", "Accessories", "Layout", "Lighting", "Typography", "Environment"].map(label => (
-            <button key={label} className="fan-choice" onClick={() => { if(label === "Accessories") { setAccessoryPickerOpen(true); setFan(null); } else if(label === "Environment") { setEnvironmentPickerOpen(true); setFan(null); } else if(label === "Paper") { setSelectedId(currentObjects.find(item=>item.kind==="note"||item.kind==="checklist")?.id ?? null); setFan(null); } else setFan(null); }}><span><Paintbrush2 size={18} /></span><small>{label}</small></button>
+            <button key={label} className="fan-choice" onClick={() => { if(label === "Accessories") { setAccessoryPickerOpen(true); setFan(null); } else if(label === "Environment") { setEnvironmentPickerOpen(true); setFan(null); } else if(label === "Lighting") { setLightingPickerOpen(true); setFan(null); } else if(label === "Paper") { setSelectedId(currentObjects.find(item=>item.kind==="note"||item.kind==="checklist")?.id ?? null); setFan(null); } else setFan(null); }}><span><Paintbrush2 size={18} /></span><small>{label}</small></button>
           ))}
         </div>
       )}
@@ -353,8 +360,26 @@ function App() {
             <h2>Environment</h2>
             <p className="theme-explainer">Choose the scene behind this collection. It stays independent of the visual theme.</p>
             <div className="environment-options">
-              <button className={activeCollection.environment === null ? "active" : ""} onClick={() => {setObjects(tree=>updateTree(tree,activeCollection.id,item=>({...item,environment:null})));setEnvironmentPickerOpen(false);}}>Use theme default</button>
+              <button className={activeCollection.environment === undefined ? "active" : ""} onClick={() => {setObjects(tree=>updateTree(tree,activeCollection.id,item=>({...item,environment:undefined})));setEnvironmentPickerOpen(false);}}>Use theme default</button>
+              <button className={activeCollection.environment === null ? "active" : ""} onClick={() => {setObjects(tree=>updateTree(tree,activeCollection.id,item=>({...item,environment:null})));setEnvironmentPickerOpen(false);}}>No scene · desk surface</button>
               {collectionEnvironments.map(scene => <button key={scene.id} className={(activeCollection.environment === scene.id || (activeCollection.environment === undefined && themeStyle.environment === scene.id)) ? "active" : ""} onClick={() => {setObjects(tree=>updateTree(tree,activeCollection.id,item=>({...item,environment:scene.id as SceneObject["environment"]})));setEnvironmentPickerOpen(false);}}><span className={`environment-swatch environment-swatch-${scene.id}`}/><span><strong>{scene.label}</strong><small>{scene.mood}</small></span></button>)}
+            </div>
+          </section>
+        </div>
+      )}
+      {lightingPickerOpen && activeCollection && (
+        <div className="note-overlay" onClick={() => setLightingPickerOpen(false)}>
+          <section className="theme-sheet lighting-sheet" onClick={e => e.stopPropagation()}>
+            <button className="note-close icon-button" onClick={() => setLightingPickerOpen(false)} aria-label="Close lighting"><X /></button>
+            <p className="eyebrow">YOUR SPACE</p>
+            <h2>Lighting</h2>
+            <p className="theme-explainer">Let the light follow your local time, or set a mood for this collection.</p>
+            <div className="lighting-options">
+              {([{id:"auto",label:"Automatic",detail:"Changes with local time"},{id:"morning",label:"Morning",detail:"Soft, warm daylight"},{id:"afternoon",label:"Afternoon",detail:"Clear natural light"},{id:"evening",label:"Evening",detail:"Low, golden light"},{id:"night",label:"Night",detail:"Cool, subdued light"}] as const).map(option => (
+                <button key={option.id} className={lightingMode===option.id?"active":""} onClick={() => {setObjects(tree=>updateTree(tree,activeCollection.id,item=>({...item,lightingMode:option.id})));setLightingPickerOpen(false);}}>
+                  <span className={`lighting-dot lighting-dot-${option.id}`}/><span><strong>{option.label}</strong><small>{option.detail}</small></span>{lightingMode===option.id && <span className="lighting-selected">Selected</span>}
+                </button>
+              ))}
             </div>
           </section>
         </div>
