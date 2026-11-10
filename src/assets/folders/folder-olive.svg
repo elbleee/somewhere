@@ -1,1 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620"><defs><linearGradient id="body" x2=".18" y2="1"><stop stop-color="#dfe1cd"/><stop offset=".62" stop-color="#dfe1cd"/><stop offset="1" stop-color="#c4c9a8"/></linearGradient><linearGradient id="tab" x2="0" y2="1"><stop stop-color="#eef0dc"/><stop offset="1" stop-color="#dfe1cd"/></linearGradient><pattern id="grain" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M0 8Q12 5 34 9M-4 25Q13 21 37 26" fill="none" stroke="#78805e" stroke-opacity=".13" stroke-width="1"/></pattern></defs><path d="M36 104Q36 88 54 88H330L372 42H555Q574 42 574 62V91H846Q864 91 864 110V558Q864 578 844 578H56Q36 578 36 558Z" fill="url(#body)" stroke="#c4c9a8" stroke-opacity=".62" stroke-width="3"/><path d="M372 43H555Q574 43 574 62V93H354Z" fill="url(#tab)" stroke="#c4c9a8" stroke-opacity=".4" stroke-width="2"/><path d="M55 111H844V557H55Z" fill="url(#grain)" opacity=".7"/><path d="M56 557Q450 566 844 557" fill="none" stroke="#fff" stroke-opacity=".24" stroke-width="2"/><path d="M60 118Q440 126 840 118" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="2"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620">
+  <defs>
+    <linearGradient id="body-olive" x1="0" y1="0" x2=".18" y2="1">
+      <stop stop-color="#dfe1cd"/>
+      <stop offset=".58" stop-color="#dfe1cd"/>
+      <stop offset="1" stop-color="#c4c9a8"/>
+    </linearGradient>
+    <linearGradient id="tab-olive" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#eff0dd"/>
+      <stop offset="1" stop-color="#dfe1cd"/>
+    </linearGradient>
+    <linearGradient id="sheen-olive" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".16" stop-color="#fff" stop-opacity=".08"/>
+      <stop offset=".82" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#5b4b39" stop-opacity=".07"/>
+    </linearGradient>
+    <pattern id="fiber-olive" width="42" height="38" patternUnits="userSpaceOnUse">
+      <path d="M2 8q12-3 25 1M18 26q10-2 21 1M31 5l5 2M7 34l4-1" fill="none" stroke="#78805e" stroke-opacity=".15" stroke-width="1"/>
+      <path d="M12 15l2 1M36 19l2-1" stroke="#fff" stroke-opacity=".24" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <path d="M36 104Q36 88 54 88H330L372 42H555Q574 42 574 62V91H846Q864 91 864 110V558Q864 578 844 578H56Q36 578 36 558Z" fill="url(#body-olive)" stroke="#c4c9a8" stroke-width="3"/>
+  <path d="M372 43H555Q574 43 574 62V93H354Z" fill="url(#tab-olive)" stroke="#c4c9a8" stroke-opacity=".68" stroke-width="2"/>
+  <path d="M54 112H846V557H54Z" fill="url(#fiber-olive)" opacity=".8"/>
+  <path d="M36 124Q36 108 55 108H845" fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="2"/>
+  <path d="M55 556Q450 565 845 556" fill="none" stroke="#c4c9a8" stroke-opacity=".68" stroke-width="2"/>
+  <path d="M58 116H842V550H58Z" fill="url(#sheen-olive)"/>
+  <path d="M372 46H553" stroke="#fff" stroke-opacity=".42" stroke-width="2"/>
+  <path d="M574 94H844" stroke="#c4c9a8" stroke-opacity=".38" stroke-width="2"/>
+</svg>
