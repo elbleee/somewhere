@@ -598,3 +598,40 @@ h1 { font:500 clamp(34px,5vw,52px)/1.05 "Playfair Display",serif; margin:0; }
   }
   .arrange-hint { margin: 8px auto 0; }
 }
+
+
+/* Mobile object fit and scroll clearance refinement. */
+@media (max-width: 700px) {
+  .workspace {
+    padding-bottom: 150px !important;
+  }
+  .object-collection {
+    height: 154px !important;
+    min-height: 154px !important;
+    padding: 29px 16px 13px !important;
+    overflow: hidden;
+  }
+  .object-collection .object-title {
+    margin-top: 15px !important;
+  }
+  .object-collection .object-subtitle {
+    margin-top: 5px;
+  }
+  .object-collection .collection-enter {
+    flex: 0 0 auto;
+    margin-top: auto !important;
+    padding-top: 5px !important;
+    line-height: 1.2;
+  }
+  .object-checklist .object-icon {
+    align-self: flex-end;
+    margin: 0 0 12px auto !important;
+    position: relative;
+    z-index: 1;
+  }
+  .object-checklist .object-title,
+  .object-checklist .object-subtitle {
+    position: relative;
+    z-index: 1;
+  }
+}
