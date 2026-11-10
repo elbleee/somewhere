@@ -238,3 +238,41 @@ h1 { font:500 clamp(34px,5vw,52px)/1.05 "Playfair Display",serif; margin:0; }
  .object-note .object-title{font-size:16px}
  .arrange-hint{margin-top:16px}
 }
+
+
+/* Visual pass — remove the ghost card beneath each stationery asset. */
+.desk-object{
+  background-color:transparent;
+  border:0!important;
+  box-shadow:none!important;
+  outline-offset:4px;
+}
+.desk-object::after{display:none!important}
+.object-collection{
+  background-color:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+.object-note,.object-checklist,.object-photo,.object-document,.object-reminder{
+  background-color:transparent!important;
+  border:0!important;
+  box-shadow:0 7px 15px rgba(20,12,7,.16)!important;
+}
+.object-link{
+  background:linear-gradient(135deg,#f5f1e8,#e5e1d6)!important;
+  border:1px solid rgba(112,93,70,.2)!important;
+  box-shadow:0 7px 15px rgba(20,12,7,.16)!important;
+}
+.object-document::before{display:block!important}
+.object-photo::before{display:block!important}
+.object-note::before,.object-checklist::before,.object-reminder::before{display:none!important}
+.object-collection .object-icon{margin-top:0}
+.object-grid{align-items:start}
+.workspace{padding-bottom:250px}
+.tool-dock{bottom:calc(18px + env(safe-area-inset-bottom));z-index:20}
+@media(max-width:700px){
+  .workspace{padding-bottom:calc(270px + env(safe-area-inset-bottom))}
+  .tool-dock{bottom:calc(18px + env(safe-area-inset-bottom))}
+  .object-grid{gap:14px}
+  .object-collection{margin-top:0!important}
+}
