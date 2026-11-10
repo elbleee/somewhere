@@ -9,7 +9,7 @@ import clockFaceAsset from "./assets/clocks/clock-face.svg";
 import hourHandAsset from "./assets/clocks/hour-hand.svg";
 import minuteHandAsset from "./assets/clocks/minute-hand.svg";
 import secondHandAsset from "./assets/clocks/second-hand.svg";
-import { collectionFinishes, paperFinishes, deskAccessories } from "./assets/manifest";
+import { collectionFinishes, paperFinishes, deskAccessories, collectionEnvironments } from "./assets/manifest";
 import { themeTokens } from "./assets/theme-system";
 
 const STORAGE_KEY = "somewhere.workspace.v1";
@@ -97,6 +97,7 @@ function App() {
   const [draft, setDraft] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [themePickerOpen, setThemePickerOpen] = useState(false);
+  const [environmentPickerOpen, setEnvironmentPickerOpen] = useState(false);
   const [accessoryPickerOpen, setAccessoryPickerOpen] = useState(false);
   const [visibleAccessories, setVisibleAccessories] = useState<string[]>(() => {
     try { const saved = localStorage.getItem("somewhere.accessories.v1"); return saved ? JSON.parse(saved) as string[] : ["coffee-cup","potted-plant"]; } catch { return ["coffee-cup","potted-plant"]; }
@@ -131,7 +132,8 @@ function App() {
   const breadcrumbs = path.map(id => findObject(objects, id)).filter((item): item is SceneObject => Boolean(item));
   const currentTheme = activeCollection?.theme ?? "clean-textured";
   const themeStyle = themeTokens[currentTheme];
-  const environmentClass = !activeCollection || !themeStyle.environment ? "" : `environment-${themeStyle.environment === "outer-space" ? "space" : themeStyle.environment === "night-sky" ? "night" : themeStyle.environment}`;
+  const selectedEnvironment = activeCollection?.environment !== undefined ? activeCollection.environment : themeStyle.environment;
+  const environmentClass = !activeCollection || !selectedEnvironment ? "" : `environment-${selectedEnvironment === "outer-space" ? "space" : selectedEnvironment === "night-sky" ? "night" : selectedEnvironment}`;
   const themeVariables = {
     "--theme-paper": themeStyle.palette.paper,
     "--theme-paper-edge": themeStyle.palette.paperEdge,
@@ -320,7 +322,7 @@ function App() {
         <div className="fan-panel customize-panel">
           <button className="fan-choice" onClick={() => { setThemePickerOpen(true); setFan(null); }}><span><Paintbrush2 size={18} /></span><small>Theme style</small></button>
           {["Paper", "Accessories", "Layout", "Lighting", "Typography", "Environment"].map(label => (
-            <button key={label} className="fan-choice" onClick={() => { if(label === "Accessories") { setAccessoryPickerOpen(true); setFan(null); } else if(label === "Paper") { setSelectedId(currentObjects.find(item=>item.kind==="note"||item.kind==="checklist")?.id ?? null); setFan(null); } else setFan(null); }}><span><Paintbrush2 size={18} /></span><small>{label}</small></button>
+            <button key={label} className="fan-choice" onClick={() => { if(label === "Accessories") { setAccessoryPickerOpen(true); setFan(null); } else if(label === "Environment") { setEnvironmentPickerOpen(true); setFan(null); } else if(label === "Paper") { setSelectedId(currentObjects.find(item=>item.kind==="note"||item.kind==="checklist")?.id ?? null); setFan(null); } else setFan(null); }}><span><Paintbrush2 size={18} /></span><small>{label}</small></button>
           ))}
         </div>
       )}
@@ -343,6 +345,20 @@ function App() {
         <button className="delete-action" onClick={deleteSelected}><Trash2/>Delete</button>
       </section></div>}
       {movePickerOpen && selectedObject && <div className="note-overlay" onClick={()=>setMovePickerOpen(false)}><section className="theme-sheet" onClick={e=>e.stopPropagation()}><button className="note-close icon-button" onClick={()=>setMovePickerOpen(false)} aria-label="Close"><X/></button><p className="eyebrow">MOVE OBJECT</p><h2>Choose a destination</h2><div className="theme-options"><button className="theme-option" onClick={()=>moveSelectedTo(null)}>My desk</button>{(function list(items:SceneObject[],depth=0):React.ReactNode[]{return items.flatMap(item=>item.kind==="collection"?[<button key={item.id} className="theme-option" style={{paddingLeft:14+depth*14}} disabled={containsObject(selectedObject,item.id)} onClick={()=>moveSelectedTo(item.id)}>{item.title}</button>,...(item.children?list(item.children,depth+1):[])]:[]);})(objects)}</div></section></div>}
+      {environmentPickerOpen && activeCollection && (
+        <div className="note-overlay" onClick={() => setEnvironmentPickerOpen(false)}>
+          <section className="theme-sheet environment-sheet" onClick={e => e.stopPropagation()}>
+            <button className="note-close icon-button" onClick={() => setEnvironmentPickerOpen(false)} aria-label="Close environments"><X /></button>
+            <p className="eyebrow">YOUR SPACE</p>
+            <h2>Environment</h2>
+            <p className="theme-explainer">Choose the scene behind this collection. It stays independent of the visual theme.</p>
+            <div className="environment-options">
+              <button className={activeCollection.environment === null ? "active" : ""} onClick={() => {setObjects(tree=>updateTree(tree,activeCollection.id,item=>({...item,environment:null})));setEnvironmentPickerOpen(false);}}>Use theme default</button>
+              {collectionEnvironments.map(scene => <button key={scene.id} className={(activeCollection.environment === scene.id || (activeCollection.environment === undefined && themeStyle.environment === scene.id)) ? "active" : ""} onClick={() => {setObjects(tree=>updateTree(tree,activeCollection.id,item=>({...item,environment:scene.id as SceneObject["environment"]})));setEnvironmentPickerOpen(false);}}><span className={`environment-swatch environment-swatch-${scene.id}`}/><span><strong>{scene.label}</strong><small>{scene.mood}</small></span></button>)}
+            </div>
+          </section>
+        </div>
+      )}
       {accessoryPickerOpen && (
         <div className="note-overlay" onClick={() => setAccessoryPickerOpen(false)}>
           <section className="theme-sheet accessory-sheet" onClick={e => e.stopPropagation()}>
