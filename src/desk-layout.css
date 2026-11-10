@@ -452,288 +452,96 @@
 }
 
 
-/* ------------------------------------------------------------------
-   SOMEWHERE HOME CONCEPT — editorial walnut desk composition
-   ------------------------------------------------------------------ */
-.home-concept { background:#3a2115; color:#f8efe2; }
-.home-concept .desk-surface {
-  background-image:
-    radial-gradient(ellipse at 50% 12%, rgba(247,191,117,.18), transparent 34%),
-    linear-gradient(110deg,rgba(35,17,9,.34),transparent 32%,rgba(35,17,9,.18)),
-    url("./assets/desk-surfaces/walnut-grain.svg");
-  background-position:center,center,center;
-  background-size:cover,cover,cover;
-  filter:saturate(1.12) contrast(1.04);
-}
-.desk-corner-props {
-  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-}
-.desk-corner-props img {
-  position:absolute;object-fit:contain;filter:drop-shadow(0 10px 13px rgba(14,7,3,.38));
-}
-.desk-corner-props .corner-plant {
-  width:clamp(82px,14vw,170px);height:clamp(110px,17vw,190px);
-  top:-18px;left:-22px;transform:rotate(-9deg);
-}
-.desk-corner-props .corner-coffee {
-  width:clamp(72px,12vw,140px);height:clamp(90px,15vw,165px);
-  top:4px;right:-24px;transform:rotate(9deg);
-}
-.concept-topbar {
-  position:relative;z-index:21;display:grid;grid-template-columns:1fr auto 1fr;
-  align-items:center;height:82px;min-height:82px;padding:0 clamp(22px,5vw,72px);
-  border:0;background:linear-gradient(180deg,rgba(28,14,8,.28),rgba(28,14,8,.02));
-  backdrop-filter:none;
-}
-.concept-icon-button {
-  display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid rgba(255,245,229,.24);
-  border-radius:50%;background:rgba(48,29,18,.28);color:#f8ead5;cursor:pointer;
-}
-.concept-icon-button svg{width:21px;height:21px;stroke-width:1.45}
-.concept-wordmark {
-  position:relative;color:#f4e5ce;font:italic 500 clamp(30px,4vw,48px)/1 "Playfair Display",Georgia,serif;
-  letter-spacing:-.045em;text-shadow:0 2px 5px rgba(0,0,0,.28);cursor:pointer;
-}
-.concept-wordmark span{position:absolute;top:0;right:-12px;font:10px Georgia,serif}
-.concept-wordmark i {
-  position:absolute;left:12%;right:12%;bottom:-9px;height:10px;
-  border-top:1.5px solid #e9d5b7;border-radius:50%;transform:rotate(-4deg);
-}
-.concept-top-actions{display:flex;align-items:center;justify-content:flex-end;gap:14px}
-.concept-leaf{background:#e8d7b7;color:#4d3c28;border:0}
-.home-concept .workspace {
-  position:relative;z-index:1;width:min(1120px,92vw);padding:38px 0 150px;
-}
-.home-heading {
-  display:block;text-align:center;margin:0 auto clamp(30px,4vw,48px);max-width:850px;
-}
-.home-heading .eyebrow {
-  margin:0 0 12px;color:rgba(246,228,202,.84);font-size:10px;letter-spacing:.34em;
-}
-.home-heading h1 {
-  margin:0;color:#fff3df;font:500 clamp(34px,5.4vw,64px)/1.06 "Playfair Display",Georgia,serif;
-  letter-spacing:-.025em;text-shadow:0 3px 14px rgba(0,0,0,.28);
-}
-.home-heading .subheading {
-  margin:8px 0 0;color:#f0ddc5;font:italic 500 clamp(16px,2vw,23px)/1.3 "Playfair Display",Georgia,serif;
-}
-.home-heading .date-stamp{display:none}
-.home-object-grid {
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  grid-auto-flow:row;align-items:stretch;gap:clamp(20px,2.3vw,30px);
-}
-.home-object-grid .desk-object {
-  min-height:clamp(220px,23vw,290px);height:clamp(220px,23vw,290px);
-  border-radius:3px;filter:saturate(1.04);
-  transition:transform .22s ease,filter .22s ease;
-}
-.home-object-grid .desk-object:hover{transform:translateY(-5px) rotate(-.35deg);filter:saturate(1.12)}
-.home-object-grid .object-artwork {
-  inset:0;z-index:0;background-size:100% 100%;
-  filter:drop-shadow(0 12px 11px rgba(17,8,3,.38));
-}
-.home-object-grid .object-content{z-index:2}
-.home-object-grid .object-content-collection{
-  inset:0;padding:clamp(72px,7vw,94px) clamp(17px,2vw,28px) 20px;
-}
-.home-object-grid .object-content-collection .object-title{
-  color:#3d2c1e;font:500 clamp(20px,2.2vw,29px)/1.1 "Playfair Display",Georgia,serif;
-  letter-spacing:.09em;text-transform:uppercase;
-}
-.home-object-grid .object-content-collection .object-subtitle{
-  margin-top:10px;color:#685542;font-size:clamp(10px,1.1vw,13px);letter-spacing:.12em;text-transform:uppercase;
-}
-.home-object-grid .folder-count{
-  position:absolute;top:clamp(45px,5vw,63px);right:clamp(18px,2vw,27px);
-  color:#5c4b39;font-size:9px;letter-spacing:.2em;font-weight:600;
-}
-.home-object-grid .folder-emblem{
-  display:block;margin:0 0 10px;color:rgba(75,73,53,.76);
-  font:32px/1 Georgia,serif;
-}
-.home-object-grid .collection-enter{
-  margin-top:auto;padding-top:10px;border-color:rgba(79,62,43,.24);
-  color:rgba(72,57,40,.72);font-size:8px;letter-spacing:.19em;
-}
-.home-object-grid .object-note,
-.home-object-grid .object-checklist,
-.home-object-grid .object-reminder,
-.home-object-grid .object-photo,
-.home-object-grid .object-document{
-  min-height:clamp(220px,23vw,290px);height:clamp(220px,23vw,290px);
-}
-.home-object-grid .object-content-note,
-.home-object-grid .object-content-checklist,
-.home-object-grid .object-content-reminder,
-.home-object-grid .object-content-document{padding:24px 22px}
-.home-object-grid .object-content-note .object-icon,
-.home-object-grid .object-content-checklist .object-icon,
-.home-object-grid .object-content-reminder .object-icon,
-.home-object-grid .object-content-document .object-icon{margin-bottom:18px}
-.home-object-grid .object-title{font-size:clamp(18px,2vw,25px);color:#443326}
-.home-object-grid .object-subtitle{font-size:13px;color:#76634f;line-height:1.45}
-.home-object-grid .object-material{opacity:.26}
-.home-object-grid .object-content-photo{padding:16px 16px 18px}
-.home-object-grid .object-media{min-height:100px}
-.home-object-grid .object-link{grid-column:span 1}
-.home-object-grid.spaces-only .desk-object:not(.object-collection){display:none}
-.home-concept .perimeter{display:none}
-.concept-dock {
-  position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));z-index:35;
-  transform:translateX(-50%);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;
-  align-items:center;gap:4px;width:min(760px,calc(100vw - 34px));height:88px;padding:7px 14px;
-  border:1px solid rgba(255,250,240,.68);border-radius:48px;
-  background:linear-gradient(180deg,rgba(248,235,213,.97),rgba(224,204,174,.97));
-  color:#3c2c1e;box-shadow:0 12px 32px rgba(17,8,3,.34),inset 0 1px 0 rgba(255,255,255,.8);
-  backdrop-filter:blur(16px);
-}
-.concept-dock button {
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  min-width:0;height:100%;border:0;border-radius:30px;background:transparent;color:#392a1e;cursor:pointer;
-}
-.concept-dock button svg{width:24px;height:24px;stroke-width:1.65}
-.concept-dock button span{font-size:9px;letter-spacing:.19em;font-weight:600}
-.concept-dock button.active{background:rgba(194,151,91,.26)}
-.concept-dock .concept-add{
-  width:68px;height:68px;justify-self:center;align-self:center;border-radius:50%;
-  background:linear-gradient(145deg,#777b4c,#42472c);color:#fff6e6;
-  box-shadow:0 5px 12px rgba(28,23,12,.35),inset 0 1px 1px rgba(255,255,255,.35);
-}
-.concept-dock .concept-add svg{width:34px;height:34px;stroke-width:1.5}
-.home-concept .fan-panel{z-index:42}
-.home-concept .workspace{padding-bottom:150px}
-@media(max-width:700px){
-  .concept-topbar{height:64px;min-height:64px;padding:0 17px;grid-template-columns:42px 1fr 82px;gap:4px}
-  .concept-wordmark{justify-self:center;font-size:31px}
-  .concept-top-actions{gap:7px}
-  .concept-top-actions .concept-icon-button{width:34px;height:34px}
-  .concept-top-actions .concept-icon-button svg{width:18px;height:18px}
-  .desk-corner-props .corner-plant{width:90px;height:112px;top:-12px;left:-25px;opacity:.8}
-  .desk-corner-props .corner-coffee{width:76px;height:100px;top:0;right:-25px;opacity:.88}
-  .home-concept .workspace{width:92vw;padding:38px 0 145px}
-  .home-heading{margin-bottom:27px;padding:0 5px}
-  .home-heading .eyebrow{font-size:8px;letter-spacing:.27em;margin-bottom:9px}
-  .home-heading h1{font-size:clamp(34px,9.2vw,43px);line-height:1.04}
-  .home-heading .subheading{font-size:16px;margin-top:8px}
-  .home-object-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}
-  .home-object-grid .desk-object{height:188px;min-height:188px;max-height:188px}
-  .home-object-grid .object-content-collection{padding:58px 14px 14px}
-  .home-object-grid .object-content-collection .object-title{font-size:17px;letter-spacing:.065em}
-  .home-object-grid .object-content-collection .object-subtitle{font-size:9px;letter-spacing:.08em;margin-top:7px}
-  .home-object-grid .folder-count{top:41px;right:15px;font-size:7px}
-  .home-object-grid .folder-emblem{font-size:25px;margin-bottom:7px}
-  .home-object-grid .collection-enter{font-size:6px;letter-spacing:.11em;padding-top:7px}
-  .home-object-grid .object-content-note,
-  .home-object-grid .object-content-checklist,
-  .home-object-grid .object-content-reminder,
-  .home-object-grid .object-content-document{padding:15px 14px}
-  .home-object-grid .object-title{font-size:18px}
-  .home-object-grid .object-subtitle{font-size:11px}
-  .home-object-grid .object-content-note .object-icon,
-  .home-object-grid .object-content-checklist .object-icon,
-  .home-object-grid .object-content-reminder .object-icon,
-  .home-object-grid .object-content-document .object-icon{margin-bottom:10px}
-  .concept-dock{height:74px;width:calc(100vw - 28px);bottom:calc(8px + env(safe-area-inset-bottom));padding:5px 7px;gap:1px}
-  .concept-dock button{gap:4px}
-  .concept-dock button svg{width:21px;height:21px}
-  .concept-dock button span{font-size:7px;letter-spacing:.12em}
-  .concept-dock .concept-add{width:55px;height:55px}
-  .concept-dock .concept-add svg{width:28px;height:28px}
-}
-
-
-/* Refine the first phone preview: remove accidental emoji styling and prevent nav overlap. */
-.home-object-grid .folder-emblem {
-  font-family: "Playfair Display", Georgia, serif;
-  font-variant-emoji: text;
-  color: rgba(65,52,37,.68);
-  font-size: 27px;
-  line-height: 1;
-}
-.home-object-grid .folder-emblem-ideas,
-.home-object-grid .folder-emblem-work { font-family: Georgia,serif; }
-.desk-corner-props { display:none; }
-.home-concept .workspace { padding-bottom: 34px; }
-.concept-dock {
-  position:sticky;
-  left:auto;
-  bottom:8px;
-  transform:none;
-  margin:34px auto calc(12px + env(safe-area-inset-bottom));
-}
-@media(max-width:700px) {
-  .home-concept .workspace { padding-bottom:20px; }
-  .home-object-grid { gap:20px 12px; }
-  .home-object-grid .desk-object { height:196px; min-height:196px; max-height:196px; }
-  .concept-dock {
-    position:sticky;
-    bottom:8px;
-    margin:26px auto calc(10px + env(safe-area-inset-bottom));
-    width:calc(100vw - 28px);
-  }
-}
-
-
 /* ================================================================
-   HOME DESK — consolidated composition rules
-   The home view is a styled still-life, not a generic card grid.
+   SOMEWHERE HOME — single source of truth
+   Responsive still-life layout. Keep homepage rules in this section.
    ================================================================ */
+
 .home-concept {
+  position:relative;
+  isolation:isolate;
+  min-height:100vh;
+  overflow-x:clip;
   color:#f7eddd;
   background:#382316;
 }
 .home-concept .desk-surface {
-  background-image:
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
     radial-gradient(ellipse 75% 48% at 50% 12%,rgba(255,211,157,.18),transparent 72%),
     linear-gradient(180deg,rgba(37,18,9,.16),transparent 34%,rgba(25,12,6,.20)),
-    url("./assets/desk-surfaces/walnut-grain.svg");
-  background-position:center,center,center;
-  background-size:cover,cover,cover;
+    url("./assets/desk-surfaces/walnut-grain.svg") center / cover no-repeat;
   filter:none;
 }
 .home-concept::before {
   content:"";
   position:fixed;
   inset:0;
-  z-index:0;
+  z-index:-1;
   pointer-events:none;
   background:
     radial-gradient(ellipse at 50% 35%,transparent 28%,rgba(20,10,5,.17) 100%),
     linear-gradient(115deg,rgba(255,225,185,.035),transparent 42%,rgba(18,9,4,.10));
 }
+.home-concept .desk-corner-props { display:none; }
+
 .home-concept .concept-topbar {
   position:relative;
   z-index:21;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  width:100%;
   height:76px;
   min-height:76px;
   padding:0 clamp(20px,5vw,68px);
   border:0;
   background:linear-gradient(180deg,rgba(32,16,9,.24),rgba(32,16,9,0));
 }
-.home-concept .concept-wordmark {
-  color:#f4e5cf;
-  font-size:clamp(34px,4.4vw,52px);
-  text-shadow:0 2px 8px rgba(20,9,4,.38);
-}
 .home-concept .concept-icon-button {
-  border-color:rgba(255,239,216,.32);
+  display:grid;
+  place-items:center;
+  width:42px;
+  height:42px;
+  padding:0;
+  border:1px solid rgba(255,239,216,.32);
+  border-radius:50%;
   background:rgba(42,24,14,.25);
   color:#f8ead6;
+  cursor:pointer;
 }
-.home-concept .concept-leaf {
-  background:#e8d8bb;
-  color:#4a3927;
-  border:0;
+.home-concept .concept-icon-button svg { width:21px;height:21px;stroke-width:1.45; }
+.home-concept .concept-wordmark {
+  position:relative;
+  justify-self:center;
+  color:#f4e5cf;
+  font:italic 500 clamp(34px,4.4vw,52px)/1 "Playfair Display",Georgia,serif;
+  letter-spacing:-.045em;
+  text-shadow:0 2px 8px rgba(20,9,4,.38);
+  cursor:pointer;
 }
+.home-concept .concept-wordmark span { position:absolute;top:0;right:-12px;font:10px Georgia,serif; }
+.home-concept .concept-wordmark i {
+  position:absolute;left:12%;right:12%;bottom:-9px;height:10px;
+  border-top:1.5px solid #e9d5b7;border-radius:50%;transform:rotate(-4deg);
+}
+.home-concept .concept-top-actions { display:flex;align-items:center;justify-content:flex-end;gap:14px; }
+.home-concept .concept-leaf { background:#e8d8bb;color:#4a3927;border:0; }
+
 .home-concept .workspace {
   position:relative;
   z-index:1;
   width:min(1120px,92vw);
-  padding:clamp(24px,4vh,46px) 0 170px;
+  margin:0 auto;
+  padding:clamp(24px,4vh,46px) 0 180px;
 }
 .home-concept .home-heading {
+  display:block;
   max-width:880px;
   margin:0 auto clamp(34px,4vw,52px);
+  padding:0 5px;
   text-align:center;
 }
 .home-concept .home-heading .eyebrow {
@@ -744,6 +552,7 @@
   letter-spacing:.34em;
 }
 .home-concept .home-heading h1 {
+  margin:0;
   color:#fff4e4;
   font:500 clamp(38px,5.6vw,66px)/1.04 "Playfair Display",Georgia,serif;
   letter-spacing:-.035em;
@@ -756,7 +565,6 @@
 }
 .home-concept .home-heading .date-stamp { display:none; }
 
-/* Three-column editorial arrangement on larger screens. */
 .home-concept .home-object-grid {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -765,6 +573,7 @@
   gap:clamp(22px,2.5vw,34px);
 }
 .home-concept .home-object-grid > .desk-object {
+  position:relative;
   width:100%;
   height:clamp(218px,22vw,258px);
   min-height:0;
@@ -785,42 +594,35 @@
 .home-concept .home-object-grid > [data-object-id="weekend"] { grid-column:3;grid-row:2;--desk-tilt:.2deg; }
 
 .home-concept .home-object-grid .object-artwork {
+  position:absolute;
   inset:0;
   z-index:0;
+  display:block;
   background-position:center;
   background-repeat:no-repeat;
   background-size:100% 100%;
   filter:drop-shadow(0 12px 13px rgba(18,8,3,.34));
-}
-.home-concept .home-object-grid .object-artwork::after {
-  content:"";
-  position:absolute;
-  inset:7% 6%;
   pointer-events:none;
-  opacity:.28;
-  background:
-    repeating-linear-gradient(3deg,rgba(104,78,48,.10) 0 1px,transparent 1px 5px),
-    repeating-linear-gradient(93deg,rgba(255,255,255,.10) 0 1px,transparent 1px 7px);
-  mix-blend-mode:multiply;
 }
-.home-concept .home-object-grid .object-material {
-  opacity:.2;
-  mix-blend-mode:multiply;
+/* Folder surfaces use their own artwork; never overlay a grid or paper texture. */
+.home-concept .home-object-grid .object-collection .object-artwork::after { content:none;display:none; }
+.home-concept .home-object-grid .object-collection .object-artwork {
+  filter:drop-shadow(0 9px 12px rgba(18,8,3,.28));
 }
 .home-concept .home-object-grid .object-content {
+  position:absolute;
   z-index:2;
+  inset:0;
+  min-width:0;
   overflow:hidden;
   color:#443326;
 }
 .home-concept .home-object-grid .object-content-collection {
-  inset:0;
   padding:clamp(67px,6.4vw,82px) clamp(18px,2vw,27px) 20px;
 }
 .home-concept .home-object-grid .object-content-collection .object-icon,
 .home-concept .home-object-grid .object-content-collection .folder-emblem,
-.home-concept .home-object-grid .object-content-collection .collection-enter {
-  display:none !important;
-}
+.home-concept .home-object-grid .object-content-collection .collection-enter { display:none!important; }
 .home-concept .home-object-grid .folder-count {
   position:absolute;
   top:clamp(43px,4.2vw,54px);
@@ -828,36 +630,37 @@
   color:rgba(66,49,31,.78);
   font-size:9px;
   font-weight:600;
-  letter-spacing:.22em;
+  letter-spacing:.18em;
+  white-space:nowrap;
 }
 .home-concept .home-object-grid .object-content-collection .object-title {
+  display:block;
+  max-width:100%;
   margin:0;
   color:#3d2b1d;
   font:600 clamp(20px,2.3vw,29px)/1.08 "Playfair Display",Georgia,serif;
-  letter-spacing:.075em;
+  letter-spacing:.055em;
   text-transform:uppercase;
+  overflow-wrap:anywhere;
 }
 .home-concept .home-object-grid .object-content-collection .object-subtitle {
+  display:block;
+  max-width:94%;
   margin-top:10px;
   color:#6b5845;
   font-size:clamp(10px,1.08vw,13px);
-  line-height:1.5;
-  letter-spacing:.12em;
+  line-height:1.45;
+  letter-spacing:.09em;
   text-transform:uppercase;
 }
 .home-concept .home-object-grid .object-content-note,
 .home-concept .home-object-grid .object-content-checklist,
 .home-concept .home-object-grid .object-content-reminder,
-.home-concept .home-object-grid .object-content-document {
-  padding:24px 23px;
-}
+.home-concept .home-object-grid .object-content-document { padding:24px 23px; }
 .home-concept .home-object-grid .object-content-note .object-icon,
 .home-concept .home-object-grid .object-content-checklist .object-icon,
 .home-concept .home-object-grid .object-content-reminder .object-icon,
-.home-concept .home-object-grid .object-content-document .object-icon {
-  margin-bottom:16px;
-  color:#75674f;
-}
+.home-concept .home-object-grid .object-content-document .object-icon { margin-bottom:16px;color:#75674f; }
 .home-concept .home-object-grid .object-title {
   color:#443326;
   font:500 clamp(19px,2vw,25px)/1.14 "Playfair Display",Georgia,serif;
@@ -868,14 +671,15 @@
   font-size:clamp(12px,1.2vw,14px);
   line-height:1.5;
 }
+.home-concept .home-object-grid .object-material { opacity:.22; }
 .home-concept .home-object-grid .object-photo .object-artwork {
   filter:drop-shadow(0 13px 14px rgba(18,8,3,.32));
 }
 .home-concept .home-object-grid .object-grip { display:none; }
+.home-concept .home-object-grid.spaces-only .desk-object:not(.object-collection) { display:none; }
 .home-concept .arrange-hint,
 .home-concept .perimeter { display:none; }
 
-/* Navigation is fixed, but the desk reserves enough scroll space beneath it. */
 .home-concept .concept-dock {
   position:fixed;
   left:50%;
@@ -883,7 +687,7 @@
   z-index:35;
   transform:translateX(-50%);
   display:grid;
-  grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns:repeat(5,minmax(0,1fr));
   align-items:center;
   gap:4px;
   width:min(760px,calc(100vw - 36px));
@@ -911,47 +715,50 @@
   color:#392a1e;
 }
 .home-concept .concept-dock button svg { width:24px;height:24px;stroke-width:1.65; }
-.home-concept .concept-dock button span { font-size:9px;letter-spacing:.17em;font-weight:600; }
+.home-concept .concept-dock button span { font-size:9px;letter-spacing:.15em;font-weight:600; }
 .home-concept .concept-dock button.active { background:rgba(194,151,91,.25); }
 .home-concept .concept-dock .concept-add {
-  width:68px;height:68px;justify-self:center;align-self:center;
+  width:68px;
+  height:68px;
+  justify-self:center;
+  align-self:center;
   border-radius:50%;
   background:linear-gradient(145deg,#777b4c,#42472c);
   color:#fff6e6;
   box-shadow:0 5px 12px rgba(28,23,12,.35),inset 0 1px 1px rgba(255,255,255,.35);
 }
 .home-concept .concept-dock .concept-add svg { width:34px;height:34px; }
+.home-concept .fan-panel { z-index:42; }
 
 @media(max-width:700px) {
   .home-concept .concept-topbar {
-    height:64px;min-height:64px;padding:0 17px;
-    grid-template-columns:42px 1fr 82px;gap:4px;
+    height:64px;
+    min-height:64px;
+    padding:0 17px;
+    grid-template-columns:42px minmax(0,1fr) 82px;
+    gap:4px;
   }
-  .home-concept .concept-wordmark { justify-self:center;font-size:31px; }
+  .home-concept .concept-wordmark { font-size:31px; }
   .home-concept .concept-top-actions { gap:7px; }
   .home-concept .concept-top-actions .concept-icon-button { width:34px;height:34px; }
   .home-concept .concept-top-actions .concept-icon-button svg { width:18px;height:18px; }
   .home-concept .workspace {
     width:calc(100% - 34px);
-    padding:26px 0 150px;
+    padding:24px 0 calc(180px + env(safe-area-inset-bottom));
   }
   .home-concept .home-heading { margin-bottom:30px;padding:0 4px; }
-  .home-concept .home-heading .eyebrow {
-    margin-bottom:9px;font-size:8px;letter-spacing:.27em;
-  }
-  .home-concept .home-heading h1 {
-    font-size:clamp(34px,9vw,43px);
-    line-height:1.04;
-  }
-  .home-concept .home-heading .subheading {
-    margin-top:8px;font-size:16px;line-height:1.35;
-  }
+  .home-concept .home-heading .eyebrow { margin-bottom:9px;font-size:8px;letter-spacing:.27em; }
+  .home-concept .home-heading h1 { font-size:clamp(34px,9vw,43px);line-height:1.04; }
+  .home-concept .home-heading .subheading { margin-top:8px;font-size:16px;line-height:1.35; }
   .home-concept .home-object-grid {
     grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:17px 13px;
+    grid-auto-flow:row;
+    align-items:start;
+    column-gap:12px;
+    row-gap:24px;
   }
   .home-concept .home-object-grid > .desk-object {
-    height:clamp(154px,42vw,178px);
+    height:clamp(164px,45vw,184px);
     min-height:0;
     max-height:none;
   }
@@ -961,118 +768,44 @@
   .home-concept .home-object-grid > [data-object-id="weekend"] { grid-column:2;grid-row:2; }
   .home-concept .home-object-grid > [data-object-id="inspiration"] { grid-column:1;grid-row:3; }
   .home-concept .home-object-grid > [data-object-id="thought"] { grid-column:2;grid-row:3; }
-  .home-concept .home-object-grid .object-content-collection {
-    padding:55px 14px 13px;
-  }
-  .home-concept .home-object-grid .folder-count {
-    top:37px;right:14px;font-size:7px;letter-spacing:.16em;
-  }
-  .home-concept .home-object-grid .object-content-collection .object-title {
-    font-size:clamp(16px,4.7vw,19px);
-    letter-spacing:.045em;
-  }
-  .home-concept .home-object-grid .object-content-collection .object-subtitle {
-    margin-top:7px;font-size:8px;line-height:1.4;letter-spacing:.07em;
-  }
-  .home-concept .home-object-grid .object-content-note,
-  .home-concept .home-object-grid .object-content-checklist,
-  .home-concept .home-object-grid .object-content-reminder,
-  .home-concept .home-object-grid .object-content-document {
-    padding:16px 14px;
-  }
-  .home-concept .home-object-grid .object-content-note .object-icon,
-  .home-concept .home-object-grid .object-content-checklist .object-icon,
-  .home-concept .home-object-grid .object-content-reminder .object-icon,
-  .home-concept .home-object-grid .object-content-document .object-icon {
-    margin-bottom:10px;
-  }
-  .home-concept .home-object-grid .object-title { font-size:18px; }
-  .home-concept .home-object-grid .object-subtitle { font-size:11px; }
-  .home-concept .concept-dock {
-    width:calc(100vw - 28px);
-    height:72px;
-    bottom:calc(8px + env(safe-area-inset-bottom));
-    padding:5px 7px;
-    gap:1px;
-  }
-  .home-concept .concept-dock button { gap:4px; }
-  .home-concept .concept-dock button svg { width:21px;height:21px; }
-  .home-concept .concept-dock button span { font-size:7px;letter-spacing:.11em; }
-  .home-concept .concept-dock .concept-add { width:54px;height:54px; }
-  .home-concept .concept-dock .concept-add svg { width:28px;height:28px; }
-}
-
-
-/* HOME DESK — final mobile composition corrections.
-   Texture belongs to paper surfaces, never to the folder silhouette or the desk around it. */
-.home-concept .home-object-grid .object-collection .object-artwork::after {
-  content:none !important;
-  display:none !important;
-}
-.home-concept .home-object-grid .object-collection .object-artwork {
-  filter:drop-shadow(0 9px 12px rgba(18,8,3,.28));
-}
-.home-concept .home-object-grid .object-content-collection {
-  overflow:visible;
-}
-.home-concept .home-object-grid .object-content-collection .object-title {
-  max-width:calc(100% - 4px);
-  line-height:1.05;
-}
-.home-concept .home-object-grid .folder-count {
-  top:clamp(40px,4.1vw,52px);
-  right:clamp(18px,2vw,26px);
-  letter-spacing:.16em;
-  white-space:nowrap;
-}
-.home-concept .home-object-grid .object-content-collection .object-subtitle {
-  max-width:90%;
-  line-height:1.35;
-}
-@media(max-width:700px) {
-  .home-concept .workspace {
-    padding-top:24px;
-    padding-bottom:calc(230px + env(safe-area-inset-bottom));
-  }
-  .home-concept .home-heading {
-    margin-bottom:34px;
-  }
-  .home-concept .home-object-grid {
-    column-gap:12px;
-    row-gap:24px;
-    align-items:start;
-  }
-  .home-concept .home-object-grid > .desk-object {
-    height:clamp(164px,45vw,184px);
-    min-height:0;
-    max-height:none;
-  }
-  .home-concept .home-object-grid .object-content-collection {
-    padding:54px 14px 13px;
-  }
+  .home-concept .home-object-grid .object-content-collection { padding:54px 14px 13px; }
   .home-concept .home-object-grid .folder-count {
     top:37px;
     right:13px;
     font-size:7px;
-    letter-spacing:.13em;
+    letter-spacing:.12em;
   }
   .home-concept .home-object-grid .object-content-collection .object-title {
     font-size:clamp(16px,4.5vw,19px);
     letter-spacing:.035em;
   }
   .home-concept .home-object-grid .object-content-collection .object-subtitle {
+    max-width:100%;
     margin-top:7px;
     font-size:8px;
-    letter-spacing:.055em;
+    line-height:1.4;
+    letter-spacing:.045em;
   }
+  .home-concept .home-object-grid .object-content-note,
+  .home-concept .home-object-grid .object-content-checklist,
+  .home-concept .home-object-grid .object-content-reminder,
+  .home-concept .home-object-grid .object-content-document { padding:16px 14px; }
+  .home-concept .home-object-grid .object-content-note .object-icon,
+  .home-concept .home-object-grid .object-content-checklist .object-icon,
+  .home-concept .home-object-grid .object-content-reminder .object-icon,
+  .home-concept .home-object-grid .object-content-document .object-icon { margin-bottom:10px; }
+  .home-concept .home-object-grid .object-title { font-size:18px; }
+  .home-concept .home-object-grid .object-subtitle { font-size:11px; }
   .home-concept .concept-dock {
-    bottom:calc(10px + env(safe-area-inset-bottom));
-    height:68px;
     width:calc(100vw - 32px);
+    height:70px;
+    bottom:calc(10px + env(safe-area-inset-bottom));
     padding:5px 8px;
+    gap:1px;
   }
-  .home-concept .concept-dock .concept-add {
-    width:52px;
-    height:52px;
-  }
+  .home-concept .concept-dock button { gap:4px; }
+  .home-concept .concept-dock button svg { width:21px;height:21px; }
+  .home-concept .concept-dock button span { font-size:7px;letter-spacing:.1em; }
+  .home-concept .concept-dock .concept-add { width:54px;height:54px; }
+  .home-concept .concept-dock .concept-add svg { width:28px;height:28px; }
 }
