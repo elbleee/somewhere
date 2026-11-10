@@ -141,3 +141,16 @@ The object options sheet now exposes the reusable finish catalog:
 Selections are stored on each `SceneObject.appearance` record as stable asset IDs, not copied URLs. The renderer resolves those IDs through `manifest.ts`. Objects without an explicit choice receive a stable ID-based default so their appearance does not change when reordered.
 
 Theme environment names are resolved from `theme-system.ts`; the scene class mapping translates catalog names to the existing CSS environment classes.
+
+
+## Collection environment art pass
+
+The six scene masters have been refined at a shared 1440×1100 viewBox:
+- Meadow: layered rolling hills, soft daylight, restrained foreground detail.
+- Outer space: deep atmospheric gradient, planet and sparse stars.
+- Studio: warm plaster wall, window light and quiet wood floor.
+- Library: built-in shelving, book spines and darker lower wall.
+- Cabin: timber floor, warm plaster and large window.
+- Night sky: moonlight, sparse stars and low layered horizon.
+
+Composition keeps the visual focal points toward the edges or upper-right, leaving the central working area quieter for the collection's objects. These remain scalable vector scene illustrations, not photographic backgrounds. Keep object readability ahead of decorative detail.
