@@ -322,3 +322,37 @@ h1 { font:500 clamp(34px,5vw,52px)/1.05 "Playfair Display",serif; margin:0; }
   .object-collection{box-shadow:0 7px 13px var(--theme-shadow)!important}
   .object-note,.object-checklist,.object-photo,.object-document,.object-reminder{box-shadow:0 6px 12px var(--theme-shadow)!important}
 }
+
+
+/* Material picker: compact tactile samples inside the object options sheet. */
+.finish-options{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:9px;
+  margin-top:10px;
+}
+.finish-options button{
+  aspect-ratio:1;
+  min-width:0;
+  border:2px solid rgba(83,67,48,.18);
+  border-radius:5px;
+  background-color:var(--theme-paper);
+  background-position:center;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  box-shadow:0 2px 5px rgba(35,25,16,.14);
+  cursor:pointer;
+  transition:border-color .16s,transform .16s;
+}
+.finish-options button.active{
+  border-color:var(--theme-accent);
+  outline:2px solid color-mix(in srgb,var(--theme-accent) 35%,transparent);
+  outline-offset:2px;
+  transform:translateY(-2px);
+}
+.paper-finish-options{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:420px){
+ .object-actions-sheet{max-height:84svh;overflow-y:auto}
+ .finish-options{gap:7px}
+ .paper-finish-options{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
