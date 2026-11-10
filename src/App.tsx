@@ -9,7 +9,7 @@ import clockFaceAsset from "./assets/clocks/clock-face.svg";
 import hourHandAsset from "./assets/clocks/hour-hand.svg";
 import minuteHandAsset from "./assets/clocks/minute-hand.svg";
 import secondHandAsset from "./assets/clocks/second-hand.svg";
-import { collectionFinishes, paperFinishes, deskAccessories, collectionEnvironments } from "./assets/manifest";
+import { collectionFinishes, paperFinishes, deskAccessories, collectionEnvironments, materialOverlays } from "./assets/manifest";
 import { themeTokens } from "./assets/theme-system";
 
 const STORAGE_KEY = "somewhere.workspace.v1";
@@ -154,6 +154,13 @@ function App() {
   } as React.CSSProperties;
   const stableAssetIndex = (id: string, length: number) =>
     Array.from(id).reduce((total, character) => (total * 31 + character.charCodeAt(0)) >>> 0, 7) % length;
+  const objectMaterial = (item: SceneObject) => {
+    if (item.kind === "checklist") return materialOverlays.graphPaper;
+    if (item.kind === "reminder") return materialOverlays.ruledPaper;
+    if (item.kind === "photo") return materialOverlays.linenWeave;
+    if (item.kind === "note" || item.kind === "document") return materialOverlays.paperFiber;
+    return undefined;
+  };
   const objectArtwork = (item: SceneObject) => {
     if (item.kind === "collection") {
       const finish = collectionFinishes.find(entry => entry.id === item.appearance?.finishId)
@@ -304,6 +311,7 @@ function App() {
               onClick={() => { if(longPressed.current){longPressed.current=false;return;} item.kind === "collection" ? navigateInto(item) : setActiveNoteId(item.id); }}
             >
               <span className="object-artwork" aria-hidden="true" style={objectArtwork(item) ? { backgroundImage: `url("${objectArtwork(item)}")` } : undefined} />
+              {objectMaterial(item) && <span className={`object-material object-material-${item.kind}`} aria-hidden="true" style={{ backgroundImage: `url("${objectMaterial(item)}")` }} />}
               <span className="object-grip"><GripVertical size={13}/></span>
               <span className={`object-content object-content-${item.kind}`}>
                 {item.kind === "photo" ? (
