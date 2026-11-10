@@ -163,7 +163,13 @@ function App() {
   };
   const objectArtwork = (item: SceneObject) => {
     if (item.kind === "collection") {
+      const defaultFolderFinish: Record<string, string> = {
+        ideas: "blue",
+        yard: "sage",
+        work: "rose"
+      };
       const finish = collectionFinishes.find(entry => entry.id === item.appearance?.finishId)
+        ?? collectionFinishes.find(entry => entry.id === defaultFolderFinish[item.id])
         ?? collectionFinishes[stableAssetIndex(item.id, collectionFinishes.length)];
       return finish.src;
     }
