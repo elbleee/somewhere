@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft, Search, Plus, Paintbrush2, Undo2, Redo2,
   Folder, Lightbulb, Image as ImageIcon, CheckSquare, FileText,
-  Link as LinkIcon, Clock3, X, ChevronRight, Home, Layers3, Copy, Trash2, Pencil, Move, GripVertical
+  Link as LinkIcon, Clock3, X, ChevronRight, Home, Layers3, Copy, Trash2, Pencil, Move, GripVertical,
+  Menu, Bell, Leaf, LayoutGrid
 } from "lucide-react";
 import type { DeskObjectKind, SceneObject, ThemeId, ObjectSize } from "./types";
 import clockFaceAsset from "./assets/clocks/clock-face.svg";
@@ -96,6 +97,7 @@ function App() {
   const [fan, setFan] = useState<"add" | "customize" | null>(null);
   const [draft, setDraft] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [showSpacesOnly, setShowSpacesOnly] = useState(false);
   const [themePickerOpen, setThemePickerOpen] = useState(false);
   const [environmentPickerOpen, setEnvironmentPickerOpen] = useState(false);
   const [lightingPickerOpen, setLightingPickerOpen] = useState(false);
@@ -193,8 +195,8 @@ function App() {
   const secondAngle = clockNow.getSeconds() * 6;
 
   const visibleObjects = useMemo(() => currentObjects.filter(item =>
-    !searchOpen || item.title.toLowerCase().includes(draft.toLowerCase())
-  ), [currentObjects, searchOpen, draft]);
+    (!searchOpen || item.title.toLowerCase().includes(draft.toLowerCase())) && (!showSpacesOnly || item.kind === "collection")
+  ), [currentObjects, searchOpen, draft, showSpacesOnly]);
 
   const navigateInto = (item: SceneObject) => {
     if (item.kind !== "collection") return;
@@ -271,22 +273,12 @@ function App() {
   ];
 
   return (
-    <main className={`app-shell theme-${currentTheme}`} style={themeVariables}>
+    <main className={`app-shell home-concept theme-${currentTheme}`} style={themeVariables}>
       <div className={`desk-surface ${environmentClass} ${lightingClass}`} aria-hidden="true" />
-      <header className="topbar">
-        <div className="breadcrumb">
-          {path.length > 0 && <button className="icon-button" onClick={() => navigateTo(path.length - 1)} aria-label="Back"><ArrowLeft /></button>}
-          <button className="brand-home" onClick={() => navigateTo(0)} aria-label="Main desk"><span className="brand-mark">s.</span></button>
-          <span className="crumb-divider">/</span>
-          <button className={path.length === 0 ? "crumb-current" : "crumb-link"} onClick={() => navigateTo(0)}>My desk</button>
-          {breadcrumbs.map((crumb, index) => (
-            <span className="crumb-segment" key={crumb.id}>
-              <ChevronRight size={13} />
-              <button className={index === breadcrumbs.length - 1 ? "crumb-current" : "crumb-link"} onClick={() => navigateTo(index + 1)}>{crumb.title}</button>
-            </span>
-          ))}
-        </div>
-        <div className="top-actions">
+      <header className="topbar concept-topbar">
+        <button className="concept-icon-button" onClick={() => setFan(fan === "customize" ? null : "customize")} aria-label="Open menu"><Menu /></button>
+        <div className="concept-wordmark" onClick={() => navigateTo(0)} role="button" tabIndex={0}>somewhere<span>®</span><i /></div>
+        <div className="top-actions concept-top-actions">
           {searchOpen ? (
             <div className="search-field">
               <Search size={16} />
@@ -294,22 +286,23 @@ function App() {
               <button className="icon-button" onClick={() => { setSearchOpen(false); setDraft(""); }} aria-label="Close search"><X size={16} /></button>
             </div>
           ) : (
-            <button className="icon-button" onClick={() => setSearchOpen(true)} aria-label="Search"><Search /></button>
+            <button className="concept-icon-button" onClick={() => setSearchOpen(true)} aria-label="Search"><Search /></button>
           )}
+          <button className="concept-icon-button concept-leaf" onClick={() => { setThemePickerOpen(true); setFan(null); }} aria-label="Change theme"><Leaf /></button>
         </div>
       </header>
 
       <section className="workspace">
-        <div className="workspace-heading">
+        <div className={`workspace-heading home-heading ${activeCollection ? "inside-collection" : ""}`}>
           <div>
-            <p className="eyebrow">{activeCollection ? "YOUR SPACE" : "SOMEWHERE TO PUT IT ALL"}</p>
-            <h1>{activeCollection?.title ?? "My desk"}</h1>
-            <p className="subheading">{activeCollection?.subtitle ?? "A place for everything on your mind."}</p>
+            <p className="eyebrow">{activeCollection ? "YOUR SPACE" : "A LITTLE SPACE OF YOUR OWN"}</p>
+            <h1>{activeCollection?.title ?? "Good things live here."}</h1>
+            <p className="subheading">{activeCollection?.subtitle ?? "Make room for whatever’s on your mind."}</p>
           </div>
-          <span className="date-stamp">{activeCollection ? themeNames.find(t => t.id === currentTheme)?.label : "EST. TODAY"}</span>
+          <span className="date-stamp">{activeCollection ? themeNames.find(t => t.id === currentTheme)?.label : ""}</span>
         </div>
 
-        <div className="object-grid">
+        <div className={`object-grid home-object-grid ${showSpacesOnly ? "spaces-only" : ""}`}>
           {visibleObjects.map(item => (
             <button
               key={item.id}
@@ -331,6 +324,8 @@ function App() {
                 ) : (
                   <span className="object-icon">{item.kind === "collection" ? null : iconFor(item.kind)}</span>
                 )}
+                {item.kind === "collection" && <span className="folder-count">{item.children?.length ?? 0} ITEMS</span>}
+                {item.kind === "collection" && <span className="folder-emblem">{item.id === "ideas" ? "✳" : item.id === "yard" ? "❧" : item.id === "work" ? "✳" : "✧"}</span>}
                 <span className="object-title">{item.title}</span>
                 <span className="object-subtitle">{item.subtitle}</span>
                 {item.kind === "collection" && <span className="collection-enter">{item.children?.length ?? 0} ITEMS · OPEN SPACE ↗</span>}
@@ -368,12 +363,12 @@ function App() {
         </div>
       )}
 
-      <nav className="tool-dock" aria-label="Desk tools">
-        <button className="icon-button" aria-label="Undo" onClick={undo} disabled={!undoStack.length}><Undo2 /></button>
-        <button className="icon-button" aria-label="Redo" onClick={redo} disabled={!redoStack.length}><Redo2 /></button>
-        <span className="dock-spacer" />
-        <button className={`icon-button ${fan === "customize" ? "selected" : ""}`} onClick={() => setFan(fan === "customize" ? null : "customize")} aria-label="Customize"><Paintbrush2 /></button>
-        <button className={`add-button ${fan === "add" ? "selected" : ""}`} onClick={() => setFan(fan === "add" ? null : "add")} aria-label="Add"><Plus /></button>
+      <nav className="tool-dock concept-dock" aria-label="Main navigation">
+        <button className={!showSpacesOnly && path.length === 0 ? "active" : ""} onClick={() => { navigateTo(0); setShowSpacesOnly(false); }}><Home/><span>DESK</span></button>
+        <button className={showSpacesOnly ? "active" : ""} onClick={() => { navigateTo(0); setShowSpacesOnly(value => !value); }}><Layers3/><span>SPACES</span></button>
+        <button className={`concept-add ${fan === "add" ? "selected" : ""}`} onClick={() => setFan(fan === "add" ? null : "add")} aria-label="Add"><Plus/></button>
+        <button className={fan === "customize" ? "active" : ""} onClick={() => setFan(fan === "customize" ? null : "customize")}><Paintbrush2/><span>CUSTOMIZE</span></button>
+        <button onClick={() => setAccessoryPickerOpen(true)}><LayoutGrid/><span>MORE</span></button>
       </nav>
 
       {selectedObject && <div className="note-overlay" onClick={()=>setSelectedId(null)}><section className="object-actions-sheet" onClick={e=>e.stopPropagation()}>
