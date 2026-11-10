@@ -439,3 +439,162 @@ h1 { font:500 clamp(34px,5vw,52px)/1.05 "Playfair Display",serif; margin:0; }
 .lighting-dot-evening{background:linear-gradient(135deg,#d58b5d,#71536a)}
 .lighting-dot-night{background:linear-gradient(135deg,#34476d,#182238)}
 .lighting-selected{margin-left:auto;color:var(--theme-accent);font-size:10px}
+
+
+/* Home desk repair — single authoritative mobile layout layer. */
+.app-shell {
+  min-height: 100svh;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+.desk-surface {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.workspace {
+  width: min(980px, 90vw);
+  margin: 0 auto;
+  padding: clamp(38px, 6vh, 68px) 0 38px;
+}
+.workspace-heading {
+  margin-bottom: clamp(22px, 4vh, 34px);
+}
+.object-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: row;
+  align-items: start;
+  gap: clamp(16px, 2vw, 24px);
+}
+.desk-object {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  min-height: 174px;
+  padding: 24px;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 2px;
+  background-color: transparent !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: none !important;
+  text-align: left;
+  isolation: isolate;
+}
+.desk-object::after { display: none !important; }
+.object-collection {
+  min-height: 174px;
+  margin: 0 !important;
+  padding: 39px 20px 18px;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+.object-collection::before { display: none !important; }
+.object-collection .object-icon { display: none !important; }
+.object-collection .object-title { margin-top: 18px; }
+.object-title { max-width: 100%; line-height: 1.12; }
+.object-subtitle { max-width: 100%; line-height: 1.4; }
+.object-note,.object-checklist,.object-photo,.object-document,.object-reminder {
+  min-height: 174px;
+  background-color: transparent !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.object-photo::before { display: block; }
+.object-document::before { display: block !important; }
+.perimeter {
+  position: static;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(980px, 90vw);
+  margin: 18px auto 0;
+  padding: 12px 0 26px;
+}
+.tool-dock {
+  z-index: 30;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+}
+.fan-panel { z-index: 31; }
+.scrim { z-index: 29; }
+.note-overlay { z-index: 40; }
+
+@media (max-width: 700px) {
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    height: 58px;
+    padding: 0 5vw;
+  }
+  .workspace {
+    width: 90vw;
+    padding: 42px 0 20px;
+  }
+  .workspace-heading { margin-bottom: 25px; }
+  .workspace-heading h1 { font-size: clamp(38px, 10vw, 48px); }
+  .subheading { font-size: 13px; }
+  .object-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px 13px;
+  }
+  .desk-object {
+    min-height: 154px;
+    padding: 17px;
+  }
+  .desk-object.size-small,.desk-object.size-medium,.desk-object.size-large {
+    grid-column: span 1;
+    min-height: 154px;
+  }
+  .desk-object.size-wide { grid-column: span 2; min-height: 148px; }
+  .object-collection {
+    min-height: 154px !important;
+    padding: 31px 16px 15px;
+  }
+  .object-collection .object-title { margin-top: 17px; font-size: 18px; }
+  .object-collection .collection-enter {
+    margin-top: auto;
+    padding-top: 9px;
+    font-size: 7px;
+  }
+  .object-note,.object-checklist,.object-photo,.object-document,.object-reminder {
+    min-height: 154px !important;
+  }
+  .object-note .object-title { font-size: 16px; }
+  .perimeter {
+    position: static;
+    display: flex;
+    width: 90vw;
+    max-width: 90vw;
+    margin: 12px auto 0;
+    padding: 10px 0 24px;
+    gap: 13px;
+    overflow: visible;
+    pointer-events: auto;
+  }
+  .perimeter-item { min-width: 34px; }
+  .perimeter-item img { max-width: 44px; max-height: 44px; }
+  .tool-dock {
+    position: fixed;
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    z-index: 30;
+  }
+  .fan-panel {
+    position: fixed;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    max-width: 94vw;
+    overflow-x: auto;
+  }
+  .arrange-hint { margin: 8px auto 0; }
+}
