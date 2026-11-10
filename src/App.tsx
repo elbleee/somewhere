@@ -5,8 +5,6 @@ import {
   Link as LinkIcon, Clock3, X, ChevronRight, Home, Layers3, Copy, Trash2, Pencil, Move, GripVertical
 } from "lucide-react";
 import type { DeskObjectKind, SceneObject, ThemeId, ObjectSize } from "./types";
-import coffeeCupAsset from "./assets/accessories/coffee-cup.svg";
-import plantAsset from "./assets/accessories/potted-plant.svg";
 import clockFaceAsset from "./assets/clocks/clock-face.svg";
 import hourHandAsset from "./assets/clocks/hour-hand.svg";
 import minuteHandAsset from "./assets/clocks/minute-hand.svg";
