@@ -11,6 +11,8 @@ import clockFaceAsset from "./assets/clocks/clock-face.svg";
 import hourHandAsset from "./assets/clocks/hour-hand.svg";
 import minuteHandAsset from "./assets/clocks/minute-hand.svg";
 import secondHandAsset from "./assets/clocks/second-hand.svg";
+import { collectionFinishes, paperFinishes } from "./assets/manifest";
+import { themeTokens } from "./assets/theme-system";
 
 const STORAGE_KEY = "somewhere.workspace.v1";
 
@@ -122,7 +124,34 @@ function App() {
   const selectedObject = selectedId ? findObject(objects, selectedId) : undefined;
   const breadcrumbs = path.map(id => findObject(objects, id)).filter((item): item is SceneObject => Boolean(item));
   const currentTheme = activeCollection?.theme ?? "clean-textured";
-  const environmentClass = !activeCollection ? "" : currentTheme === "surreal-atmospheric" ? "environment-space" : currentTheme === "minimal-natural" ? "environment-meadow" : currentTheme === "clean-textured" ? "environment-studio" : currentTheme === "vintage-ephemera" ? "environment-library" : currentTheme === "cinematic-realism" ? "environment-cabin" : currentTheme === "photoreal-desk" ? "environment-night" : "";
+  const themeStyle = themeTokens[currentTheme];
+  const environmentClass = !activeCollection || !themeStyle.environment ? "" : `environment-${themeStyle.environment === "outer-space" ? "space" : themeStyle.environment}`;
+  const themeVariables = {
+    "--theme-paper": themeStyle.palette.paper,
+    "--theme-paper-edge": themeStyle.palette.paperEdge,
+    "--theme-ink": themeStyle.palette.ink,
+    "--theme-muted-ink": themeStyle.palette.mutedInk,
+    "--theme-accent": themeStyle.palette.accent,
+    "--theme-folder": themeStyle.palette.folder,
+    "--theme-shadow": themeStyle.palette.shadow,
+    "--theme-texture-strength": String(themeStyle.textureStrength),
+    "--theme-shadow-strength": String(themeStyle.shadowStrength)
+  } as React.CSSProperties;
+  const objectArtwork = (item: SceneObject) => {
+    if (item.kind === "collection") {
+      const finish = collectionFinishes.find(entry => entry.id === item.appearance?.finishId)
+        ?? collectionFinishes[item.position % collectionFinishes.length];
+      return finish.src;
+    }
+    const paperId = item.appearance?.paperId ?? (
+      item.kind === "note" ? "sticky-butter" :
+      item.kind === "checklist" ? "grid" :
+      item.kind === "photo" ? "polaroid" :
+      item.kind === "document" ? "blank" :
+      item.kind === "reminder" ? "reminder" : ""
+    );
+    return paperFinishes.find(entry => entry.id === paperId)?.src;
+  };
   const hourAngle = (clockNow.getHours() % 12) * 30 + clockNow.getMinutes() * .5;
   const minuteAngle = clockNow.getMinutes() * 6 + clockNow.getSeconds() * .1;
   const secondAngle = clockNow.getSeconds() * 6;
@@ -206,7 +235,7 @@ function App() {
   ];
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell theme-${currentTheme}`} style={themeVariables}>
       <div className={`desk-surface ${environmentClass}`} aria-hidden="true" />
       <header className="topbar">
         <div className="breadcrumb">
@@ -248,7 +277,7 @@ function App() {
           {visibleObjects.map(item => (
             <button
               key={item.id}
-              className={`desk-object object-${item.kind} size-${item.size} ${draggingId===item.id?"is-dragging":""}`} data-object-id={item.id} onPointerDown={event=>startPress(event,item.id)} onPointerMove={movePress} onPointerUp={endPress} onPointerCancel={() => {if(pressTimer.current)clearTimeout(pressTimer.current);dragStart.current=null;setDraggingId(null);}} onContextMenu={event=>{event.preventDefault();setSelectedId(item.id);}}
+              className={`desk-object object-${item.kind} size-${item.size} ${draggingId===item.id?"is-dragging":""}`} style={objectArtwork(item) ? { backgroundImage: `url("${objectArtwork(item)}")` } : undefined} data-object-id={item.id} onPointerDown={event=>startPress(event,item.id)} onPointerMove={movePress} onPointerUp={endPress} onPointerCancel={() => {if(pressTimer.current)clearTimeout(pressTimer.current);dragStart.current=null;setDraggingId(null);}} onContextMenu={event=>{event.preventDefault();setSelectedId(item.id);}}
               onClick={() => { if(longPressed.current){longPressed.current=false;return;} item.kind === "collection" ? navigateInto(item) : setActiveNoteId(item.id); }}
             >
               <span className="object-grip"><GripVertical size={13}/></span><span className="object-icon">{iconFor(item.kind)}</span>
