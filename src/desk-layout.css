@@ -1001,3 +1001,78 @@
   .home-concept .concept-dock .concept-add { width:54px;height:54px; }
   .home-concept .concept-dock .concept-add svg { width:28px;height:28px; }
 }
+
+
+/* HOME DESK — final mobile composition corrections.
+   Texture belongs to paper surfaces, never to the folder silhouette or the desk around it. */
+.home-concept .home-object-grid .object-collection .object-artwork::after {
+  content:none !important;
+  display:none !important;
+}
+.home-concept .home-object-grid .object-collection .object-artwork {
+  filter:drop-shadow(0 9px 12px rgba(18,8,3,.28));
+}
+.home-concept .home-object-grid .object-content-collection {
+  overflow:visible;
+}
+.home-concept .home-object-grid .object-content-collection .object-title {
+  max-width:calc(100% - 4px);
+  line-height:1.05;
+}
+.home-concept .home-object-grid .folder-count {
+  top:clamp(40px,4.1vw,52px);
+  right:clamp(18px,2vw,26px);
+  letter-spacing:.16em;
+  white-space:nowrap;
+}
+.home-concept .home-object-grid .object-content-collection .object-subtitle {
+  max-width:90%;
+  line-height:1.35;
+}
+@media(max-width:700px) {
+  .home-concept .workspace {
+    padding-top:24px;
+    padding-bottom:calc(230px + env(safe-area-inset-bottom));
+  }
+  .home-concept .home-heading {
+    margin-bottom:34px;
+  }
+  .home-concept .home-object-grid {
+    column-gap:12px;
+    row-gap:24px;
+    align-items:start;
+  }
+  .home-concept .home-object-grid > .desk-object {
+    height:clamp(164px,45vw,184px);
+    min-height:0;
+    max-height:none;
+  }
+  .home-concept .home-object-grid .object-content-collection {
+    padding:54px 14px 13px;
+  }
+  .home-concept .home-object-grid .folder-count {
+    top:37px;
+    right:13px;
+    font-size:7px;
+    letter-spacing:.13em;
+  }
+  .home-concept .home-object-grid .object-content-collection .object-title {
+    font-size:clamp(16px,4.5vw,19px);
+    letter-spacing:.035em;
+  }
+  .home-concept .home-object-grid .object-content-collection .object-subtitle {
+    margin-top:7px;
+    font-size:8px;
+    letter-spacing:.055em;
+  }
+  .home-concept .concept-dock {
+    bottom:calc(10px + env(safe-area-inset-bottom));
+    height:68px;
+    width:calc(100vw - 32px);
+    padding:5px 8px;
+  }
+  .home-concept .concept-dock .concept-add {
+    width:52px;
+    height:52px;
+  }
+}
