@@ -329,7 +329,7 @@ function App() {
                   <span className="object-icon">{item.kind === "collection" ? null : iconFor(item.kind)}</span>
                 )}
                 {item.kind === "collection" && <span className="folder-count">{item.children?.length ?? 0} ITEMS</span>}
-                {item.kind === "collection" && <span className="folder-emblem">{item.id === "ideas" ? "✳" : item.id === "yard" ? "❧" : item.id === "work" ? "✳" : "✧"}</span>}
+                {item.kind === "collection" && <span className={`folder-emblem folder-emblem-${item.id}`} aria-hidden="true">{item.id === "ideas" ? "✳︎" : item.id === "yard" ? "❧︎" : item.id === "work" ? "✳︎" : "✧︎"}</span>}
                 <span className="object-title">{item.title}</span>
                 <span className="object-subtitle">{item.subtitle}</span>
                 {item.kind === "collection" && <span className="collection-enter">{item.children?.length ?? 0} ITEMS · OPEN SPACE ↗</span>}
