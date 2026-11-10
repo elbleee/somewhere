@@ -672,3 +672,332 @@
     width:calc(100vw - 28px);
   }
 }
+
+
+/* ================================================================
+   HOME DESK — consolidated composition rules
+   The home view is a styled still-life, not a generic card grid.
+   ================================================================ */
+.home-concept {
+  color:#f7eddd;
+  background:#382316;
+}
+.home-concept .desk-surface {
+  background-image:
+    radial-gradient(ellipse 75% 48% at 50% 12%,rgba(255,211,157,.18),transparent 72%),
+    linear-gradient(180deg,rgba(37,18,9,.16),transparent 34%,rgba(25,12,6,.20)),
+    url("./assets/desk-surfaces/walnut-grain.svg");
+  background-position:center,center,center;
+  background-size:cover,cover,cover;
+  filter:none;
+}
+.home-concept::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 35%,transparent 28%,rgba(20,10,5,.17) 100%),
+    linear-gradient(115deg,rgba(255,225,185,.035),transparent 42%,rgba(18,9,4,.10));
+}
+.home-concept .concept-topbar {
+  position:relative;
+  z-index:21;
+  height:76px;
+  min-height:76px;
+  padding:0 clamp(20px,5vw,68px);
+  border:0;
+  background:linear-gradient(180deg,rgba(32,16,9,.24),rgba(32,16,9,0));
+}
+.home-concept .concept-wordmark {
+  color:#f4e5cf;
+  font-size:clamp(34px,4.4vw,52px);
+  text-shadow:0 2px 8px rgba(20,9,4,.38);
+}
+.home-concept .concept-icon-button {
+  border-color:rgba(255,239,216,.32);
+  background:rgba(42,24,14,.25);
+  color:#f8ead6;
+}
+.home-concept .concept-leaf {
+  background:#e8d8bb;
+  color:#4a3927;
+  border:0;
+}
+.home-concept .workspace {
+  position:relative;
+  z-index:1;
+  width:min(1120px,92vw);
+  padding:clamp(24px,4vh,46px) 0 170px;
+}
+.home-concept .home-heading {
+  max-width:880px;
+  margin:0 auto clamp(34px,4vw,52px);
+  text-align:center;
+}
+.home-concept .home-heading .eyebrow {
+  margin:0 0 12px;
+  color:rgba(247,230,205,.84);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.34em;
+}
+.home-concept .home-heading h1 {
+  color:#fff4e4;
+  font:500 clamp(38px,5.6vw,66px)/1.04 "Playfair Display",Georgia,serif;
+  letter-spacing:-.035em;
+  text-shadow:0 3px 14px rgba(23,10,4,.28);
+}
+.home-concept .home-heading .subheading {
+  margin:10px 0 0;
+  color:rgba(248,231,210,.94);
+  font:italic 500 clamp(17px,2.2vw,25px)/1.35 "Playfair Display",Georgia,serif;
+}
+.home-concept .home-heading .date-stamp { display:none; }
+
+/* Three-column editorial arrangement on larger screens. */
+.home-concept .home-object-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-auto-flow:row;
+  align-items:start;
+  gap:clamp(22px,2.5vw,34px);
+}
+.home-concept .home-object-grid > .desk-object {
+  width:100%;
+  height:clamp(218px,22vw,258px);
+  min-height:0;
+  max-height:none;
+  border-radius:4px;
+  transform:rotate(var(--desk-tilt,0deg));
+  transition:transform .22s ease,filter .22s ease;
+}
+.home-concept .home-object-grid > .desk-object:hover {
+  transform:translateY(-4px) rotate(0deg);
+  filter:brightness(1.035);
+}
+.home-concept .home-object-grid > [data-object-id="ideas"] { grid-column:1;grid-row:1;--desk-tilt:-.35deg; }
+.home-concept .home-object-grid > [data-object-id="yard"] { grid-column:2;grid-row:1;--desk-tilt:.25deg; }
+.home-concept .home-object-grid > [data-object-id="work"] { grid-column:3;grid-row:1;--desk-tilt:-.2deg; }
+.home-concept .home-object-grid > [data-object-id="inspiration"] { grid-column:1;grid-row:2;--desk-tilt:.4deg; }
+.home-concept .home-object-grid > [data-object-id="thought"] { grid-column:2;grid-row:2;--desk-tilt:-.3deg; }
+.home-concept .home-object-grid > [data-object-id="weekend"] { grid-column:3;grid-row:2;--desk-tilt:.2deg; }
+
+.home-concept .home-object-grid .object-artwork {
+  inset:0;
+  z-index:0;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  filter:drop-shadow(0 12px 13px rgba(18,8,3,.34));
+}
+.home-concept .home-object-grid .object-artwork::after {
+  content:"";
+  position:absolute;
+  inset:7% 6%;
+  pointer-events:none;
+  opacity:.28;
+  background:
+    repeating-linear-gradient(3deg,rgba(104,78,48,.10) 0 1px,transparent 1px 5px),
+    repeating-linear-gradient(93deg,rgba(255,255,255,.10) 0 1px,transparent 1px 7px);
+  mix-blend-mode:multiply;
+}
+.home-concept .home-object-grid .object-material {
+  opacity:.2;
+  mix-blend-mode:multiply;
+}
+.home-concept .home-object-grid .object-content {
+  z-index:2;
+  overflow:hidden;
+  color:#443326;
+}
+.home-concept .home-object-grid .object-content-collection {
+  inset:0;
+  padding:clamp(67px,6.4vw,82px) clamp(18px,2vw,27px) 20px;
+}
+.home-concept .home-object-grid .object-content-collection .object-icon,
+.home-concept .home-object-grid .object-content-collection .folder-emblem,
+.home-concept .home-object-grid .object-content-collection .collection-enter {
+  display:none !important;
+}
+.home-concept .home-object-grid .folder-count {
+  position:absolute;
+  top:clamp(43px,4.2vw,54px);
+  right:clamp(20px,2vw,28px);
+  color:rgba(66,49,31,.78);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.22em;
+}
+.home-concept .home-object-grid .object-content-collection .object-title {
+  margin:0;
+  color:#3d2b1d;
+  font:600 clamp(20px,2.3vw,29px)/1.08 "Playfair Display",Georgia,serif;
+  letter-spacing:.075em;
+  text-transform:uppercase;
+}
+.home-concept .home-object-grid .object-content-collection .object-subtitle {
+  margin-top:10px;
+  color:#6b5845;
+  font-size:clamp(10px,1.08vw,13px);
+  line-height:1.5;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.home-concept .home-object-grid .object-content-note,
+.home-concept .home-object-grid .object-content-checklist,
+.home-concept .home-object-grid .object-content-reminder,
+.home-concept .home-object-grid .object-content-document {
+  padding:24px 23px;
+}
+.home-concept .home-object-grid .object-content-note .object-icon,
+.home-concept .home-object-grid .object-content-checklist .object-icon,
+.home-concept .home-object-grid .object-content-reminder .object-icon,
+.home-concept .home-object-grid .object-content-document .object-icon {
+  margin-bottom:16px;
+  color:#75674f;
+}
+.home-concept .home-object-grid .object-title {
+  color:#443326;
+  font:500 clamp(19px,2vw,25px)/1.14 "Playfair Display",Georgia,serif;
+}
+.home-concept .home-object-grid .object-subtitle {
+  margin-top:8px;
+  color:#786650;
+  font-size:clamp(12px,1.2vw,14px);
+  line-height:1.5;
+}
+.home-concept .home-object-grid .object-photo .object-artwork {
+  filter:drop-shadow(0 13px 14px rgba(18,8,3,.32));
+}
+.home-concept .home-object-grid .object-grip { display:none; }
+.home-concept .arrange-hint,
+.home-concept .perimeter { display:none; }
+
+/* Navigation is fixed, but the desk reserves enough scroll space beneath it. */
+.home-concept .concept-dock {
+  position:fixed;
+  left:50%;
+  bottom:calc(12px + env(safe-area-inset-bottom));
+  z-index:35;
+  transform:translateX(-50%);
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+  align-items:center;
+  gap:4px;
+  width:min(760px,calc(100vw - 36px));
+  height:86px;
+  margin:0;
+  padding:7px 14px;
+  border:1px solid rgba(255,249,237,.78);
+  border-radius:48px;
+  background:linear-gradient(180deg,rgba(250,239,220,.98),rgba(225,207,177,.98));
+  color:#3c2c1e;
+  box-shadow:0 12px 32px rgba(17,8,3,.36),inset 0 1px 0 rgba(255,255,255,.86);
+  backdrop-filter:blur(16px);
+}
+.home-concept .concept-dock button {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  min-width:0;
+  height:100%;
+  border:0;
+  border-radius:30px;
+  background:transparent;
+  color:#392a1e;
+}
+.home-concept .concept-dock button svg { width:24px;height:24px;stroke-width:1.65; }
+.home-concept .concept-dock button span { font-size:9px;letter-spacing:.17em;font-weight:600; }
+.home-concept .concept-dock button.active { background:rgba(194,151,91,.25); }
+.home-concept .concept-dock .concept-add {
+  width:68px;height:68px;justify-self:center;align-self:center;
+  border-radius:50%;
+  background:linear-gradient(145deg,#777b4c,#42472c);
+  color:#fff6e6;
+  box-shadow:0 5px 12px rgba(28,23,12,.35),inset 0 1px 1px rgba(255,255,255,.35);
+}
+.home-concept .concept-dock .concept-add svg { width:34px;height:34px; }
+
+@media(max-width:700px) {
+  .home-concept .concept-topbar {
+    height:64px;min-height:64px;padding:0 17px;
+    grid-template-columns:42px 1fr 82px;gap:4px;
+  }
+  .home-concept .concept-wordmark { justify-self:center;font-size:31px; }
+  .home-concept .concept-top-actions { gap:7px; }
+  .home-concept .concept-top-actions .concept-icon-button { width:34px;height:34px; }
+  .home-concept .concept-top-actions .concept-icon-button svg { width:18px;height:18px; }
+  .home-concept .workspace {
+    width:calc(100% - 34px);
+    padding:26px 0 150px;
+  }
+  .home-concept .home-heading { margin-bottom:30px;padding:0 4px; }
+  .home-concept .home-heading .eyebrow {
+    margin-bottom:9px;font-size:8px;letter-spacing:.27em;
+  }
+  .home-concept .home-heading h1 {
+    font-size:clamp(34px,9vw,43px);
+    line-height:1.04;
+  }
+  .home-concept .home-heading .subheading {
+    margin-top:8px;font-size:16px;line-height:1.35;
+  }
+  .home-concept .home-object-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:17px 13px;
+  }
+  .home-concept .home-object-grid > .desk-object {
+    height:clamp(154px,42vw,178px);
+    min-height:0;
+    max-height:none;
+  }
+  .home-concept .home-object-grid > [data-object-id="ideas"] { grid-column:1;grid-row:1; }
+  .home-concept .home-object-grid > [data-object-id="yard"] { grid-column:2;grid-row:1; }
+  .home-concept .home-object-grid > [data-object-id="work"] { grid-column:1;grid-row:2; }
+  .home-concept .home-object-grid > [data-object-id="weekend"] { grid-column:2;grid-row:2; }
+  .home-concept .home-object-grid > [data-object-id="inspiration"] { grid-column:1;grid-row:3; }
+  .home-concept .home-object-grid > [data-object-id="thought"] { grid-column:2;grid-row:3; }
+  .home-concept .home-object-grid .object-content-collection {
+    padding:55px 14px 13px;
+  }
+  .home-concept .home-object-grid .folder-count {
+    top:37px;right:14px;font-size:7px;letter-spacing:.16em;
+  }
+  .home-concept .home-object-grid .object-content-collection .object-title {
+    font-size:clamp(16px,4.7vw,19px);
+    letter-spacing:.045em;
+  }
+  .home-concept .home-object-grid .object-content-collection .object-subtitle {
+    margin-top:7px;font-size:8px;line-height:1.4;letter-spacing:.07em;
+  }
+  .home-concept .home-object-grid .object-content-note,
+  .home-concept .home-object-grid .object-content-checklist,
+  .home-concept .home-object-grid .object-content-reminder,
+  .home-concept .home-object-grid .object-content-document {
+    padding:16px 14px;
+  }
+  .home-concept .home-object-grid .object-content-note .object-icon,
+  .home-concept .home-object-grid .object-content-checklist .object-icon,
+  .home-concept .home-object-grid .object-content-reminder .object-icon,
+  .home-concept .home-object-grid .object-content-document .object-icon {
+    margin-bottom:10px;
+  }
+  .home-concept .home-object-grid .object-title { font-size:18px; }
+  .home-concept .home-object-grid .object-subtitle { font-size:11px; }
+  .home-concept .concept-dock {
+    width:calc(100vw - 28px);
+    height:72px;
+    bottom:calc(8px + env(safe-area-inset-bottom));
+    padding:5px 7px;
+    gap:1px;
+  }
+  .home-concept .concept-dock button { gap:4px; }
+  .home-concept .concept-dock button svg { width:21px;height:21px; }
+  .home-concept .concept-dock button span { font-size:7px;letter-spacing:.11em; }
+  .home-concept .concept-dock .concept-add { width:54px;height:54px; }
+  .home-concept .concept-dock .concept-add svg { width:28px;height:28px; }
+}
