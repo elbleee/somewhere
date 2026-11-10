@@ -1,12 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" preserveAspectRatio="xMidYMid slice"><defs>
-<linearGradient id="base" x2="0" y2="1"><stop stop-color="#795238"/><stop offset=".22" stop-color="#573923"/><stop offset=".48" stop-color="#815b3c"/><stop offset=".72" stop-color="#4b3021"/><stop offset="1" stop-color="#765039"/></linearGradient>
-<linearGradient id="light" x2="1" y2="0"><stop stop-color="#180d08" stop-opacity=".3"/><stop offset=".18" stop-color="#e0b17d" stop-opacity=".13"/><stop offset=".52" stop-color="#24140d" stop-opacity=".06"/><stop offset=".8" stop-color="#e2b17c" stop-opacity=".12"/><stop offset="1" stop-color="#160c07" stop-opacity=".28"/></linearGradient>
-<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".012 .09" numOctaves="3" seed="12"/><feColorMatrix values=".55 0 0 0 .22 .45 0 0 0 .15 .35 0 0 0 .08 0 0 0 .24 0"/></filter>
-<filter id="soft"><feGaussianBlur stdDeviation="9"/></filter>
-</defs><rect width="1800" height="1200" fill="url(#base)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1800" viewBox="0 0 1800 1800" preserveAspectRatio="xMidYMid slice">
+<defs>
+  <linearGradient id="walnut" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#6d4329"/><stop offset=".22" stop-color="#57331f"/><stop offset=".48" stop-color="#805437"/><stop offset=".72" stop-color="#4d2e1d"/><stop offset="1" stop-color="#70472d"/>
+  </linearGradient>
+  <linearGradient id="warmth" x1="0" y1="0" x2="1" y2="0">
+    <stop stop-color="#160b06" stop-opacity=".3"/><stop offset=".18" stop-color="#d99d68" stop-opacity=".14"/><stop offset=".48" stop-color="#211109" stop-opacity=".04"/><stop offset=".78" stop-color="#f0bd83" stop-opacity=".12"/><stop offset="1" stop-color="#160b06" stop-opacity=".32"/>
+  </linearGradient>
+  <radialGradient id="sunlight" cx=".48" cy=".08" r=".86">
+    <stop stop-color="#f4c38d" stop-opacity=".22"/><stop offset=".55" stop-color="#d58f55" stop-opacity=".06"/><stop offset="1" stop-color="#160a04" stop-opacity=".28"/>
+  </radialGradient>
+  <filter id="woodgrain">
+    <feTurbulence type="fractalNoise" baseFrequency=".009 .055" numOctaves="3" seed="18" result="noise"/>
+    <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+    <feComponentTransfer in="mono"><feFuncA type="table" tableValues="0 .28"/></feComponentTransfer>
+    <feBlend in="SourceGraphic" mode="soft-light"/>
+  </filter>
+  <filter id="finegrain">
+    <feTurbulence type="fractalNoise" baseFrequency=".42" numOctaves="2" seed="7"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="table" tableValues="0 .10"/></feComponentTransfer>
+  </filter>
+  <linearGradient id="boardedge" x2="0" y2="1"><stop stop-color="#2a170d" stop-opacity=".3"/><stop offset=".5" stop-color="#d59a66" stop-opacity=".05"/><stop offset="1" stop-color="#1b0e07" stop-opacity=".3"/></linearGradient>
+</defs>
+<rect width="1800" height="1800" fill="url(#walnut)"/>
 <g fill="none" stroke-linecap="round">
-<g stroke="#2b190f" opacity=".35"><path stroke-width="22" d="M-40 85 C260 35 420 135 760 82 S1370 35 1840 100"/><path stroke-width="15" d="M-30 260 C330 205 500 315 850 250 S1450 210 1830 275"/><path stroke-width="27" d="M-30 470 C300 410 570 520 900 458 S1480 420 1840 490"/><path stroke-width="18" d="M-20 700 C330 640 520 755 900 690 S1450 655 1830 720"/><path stroke-width="24" d="M-30 930 C280 875 540 990 900 920 S1450 890 1840 950"/><path stroke-width="15" d="M-30 1110 C300 1060 560 1160 900 1095 S1460 1055 1830 1125"/></g>
-<g stroke="#c28b5d" opacity=".2"><path stroke-width="5" d="M-20 105 Q340 48 700 105 T1450 100 T1830 125"/><path stroke-width="4" d="M-30 292 Q330 240 700 292 T1450 285 T1830 310"/><path stroke-width="6" d="M-20 515 Q350 455 720 515 T1450 505 T1830 535"/><path stroke-width="4" d="M-20 745 Q350 690 720 745 T1450 735 T1830 765"/><path stroke-width="5" d="M-20 975 Q350 915 720 975 T1450 965 T1830 995"/></g>
-<g stroke="#1d1009" opacity=".28"><path stroke-width="2" d="M0 155 C400 125 550 180 920 150 S1450 130 1800 170"/><path stroke-width="3" d="M0 385 C400 355 550 410 920 380 S1450 360 1800 400"/><path stroke-width="2" d="M0 620 C400 590 550 645 920 615 S1450 595 1800 635"/><path stroke-width="3" d="M0 850 C400 820 550 875 920 845 S1450 825 1800 865"/><path stroke-width="2" d="M0 1065 C400 1035 550 1090 920 1060 S1450 1040 1800 1080"/></g></g>
-<g fill="none" stroke="#29170d" opacity=".34"><ellipse cx="1320" cy="345" rx="145" ry="48" stroke-width="8"/><ellipse cx="1320" cy="345" rx="110" ry="31" stroke-width="4"/><ellipse cx="1320" cy="345" rx="68" ry="17" stroke-width="3"/><ellipse cx="440" cy="865" rx="100" ry="32" stroke-width="7"/><ellipse cx="440" cy="865" rx="68" ry="19" stroke-width="3"/></g>
-<rect width="1800" height="1200" fill="url(#light)"/><rect width="1800" height="1200" filter="url(#grain)" opacity=".24"/></svg>
+  <g stroke="#24140c" opacity=".34">
+    <path stroke-width="34" d="M-80 115 C210 38 420 176 720 102 S1290 40 1880 128"/>
+    <path stroke-width="22" d="M-50 315 C260 245 500 360 820 300 S1450 236 1850 325"/>
+    <path stroke-width="38" d="M-80 548 C260 455 490 605 850 528 S1450 470 1880 560"/>
+    <path stroke-width="26" d="M-40 795 C260 715 540 850 900 778 S1480 720 1850 810"/>
+    <path stroke-width="32" d="M-70 1040 C250 960 510 1100 850 1028 S1460 970 1880 1055"/>
+    <path stroke-width="24" d="M-40 1280 C300 1200 530 1345 900 1268 S1490 1210 1850 1295"/>
+    <path stroke-width="36" d="M-80 1530 C260 1445 530 1590 880 1515 S1450 1450 1880 1545"/>
+    <path stroke-width="18" d="M-50 1730 C280 1660 560 1770 900 1710 S1450 1660 1850 1740"/>
+  </g>
+  <g stroke="#c58a59" opacity=".22">
+    <path stroke-width="5" d="M-50 88 Q300 35 690 95 T1450 82 T1850 105"/>
+    <path stroke-width="3" d="M-40 222 Q330 175 700 225 T1450 212 T1850 235"/>
+    <path stroke-width="6" d="M-50 430 Q330 370 700 435 T1450 420 T1850 450"/>
+    <path stroke-width="4" d="M-40 680 Q330 625 700 685 T1450 670 T1850 700"/>
+    <path stroke-width="5" d="M-50 910 Q330 850 700 915 T1450 900 T1850 930"/>
+    <path stroke-width="4" d="M-40 1160 Q330 1105 700 1165 T1450 1150 T1850 1180"/>
+    <path stroke-width="6" d="M-50 1400 Q330 1340 700 1405 T1450 1390 T1850 1420"/>
+    <path stroke-width="4" d="M-40 1645 Q330 1590 700 1650 T1450 1635 T1850 1665"/>
+  </g>
+  <g stroke="#160c07" opacity=".2">
+    <path stroke-width="2" d="M0 170 C360 145 540 210 900 175 S1450 145 1800 185"/>
+    <path stroke-width="2" d="M0 385 C360 360 540 425 900 390 S1450 360 1800 400"/>
+    <path stroke-width="2" d="M0 615 C360 590 540 655 900 620 S1450 590 1800 630"/>
+    <path stroke-width="2" d="M0 865 C360 840 540 905 900 870 S1450 840 1800 880"/>
+    <path stroke-width="2" d="M0 1115 C360 1090 540 1155 900 1120 S1450 1090 1800 1130"/>
+    <path stroke-width="2" d="M0 1355 C360 1330 540 1395 900 1360 S1450 1330 1800 1370"/>
+    <path stroke-width="2" d="M0 1600 C360 1575 540 1640 900 1605 S1450 1575 1800 1615"/>
+  </g>
+</g>
+<g fill="none" stroke="#2a170e" opacity=".34">
+  <ellipse cx="1380" cy="480" rx="138" ry="52" stroke-width="8"/><ellipse cx="1380" cy="480" rx="102" ry="34" stroke-width="4"/><ellipse cx="1380" cy="480" rx="62" ry="19" stroke-width="3"/>
+  <ellipse cx="350" cy="1325" rx="118" ry="42" stroke-width="7"/><ellipse cx="350" cy="1325" rx="79" ry="26" stroke-width="4"/>
+</g>
+<rect width="1800" height="1800" fill="url(#warmth)"/>
+<rect width="1800" height="1800" fill="url(#sunlight)"/>
+<rect width="1800" height="1800" fill="url(#boardedge)" opacity=".45"/>
+<rect width="1800" height="1800" filter="url(#woodgrain)" opacity=".28"/>
+<rect width="1800" height="1800" filter="url(#finegrain)" opacity=".22"/>
+</svg>
