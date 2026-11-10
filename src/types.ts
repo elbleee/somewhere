@@ -32,6 +32,7 @@ export interface SceneObject {
   children?: SceneObject[];
   createdAt?: string;
   updatedAt?: string;
+  appearance?: { finishId?: string; paperId?: string; rotation?: number };
 }
 
 export interface Scene {
