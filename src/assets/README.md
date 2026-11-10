@@ -61,3 +61,30 @@ Folder artwork contains no labels. Collection names and counts remain live app t
 - Prefer transparent backgrounds for isolated accessories.
 - Keep shadows subtle and consistent with the default upper-left light direction.
 - Theme-specific rendering preserves object identity; asset packs provide material and color variants.
+
+
+## Central catalog
+
+- `manifest.ts` is the central import catalog for surfaces, collection finishes, paper finishes, accessories, clocks, and environments.
+- UI components should select a stable asset ID from the catalog instead of embedding file paths or duplicating import lists.
+- The catalog records human-readable labels and lightweight grouping metadata. It does not decide which finish a user sees; that selection belongs to workspace/collection settings.
+
+## Production consistency checklist
+
+Before an asset is promoted from prototype to production:
+
+1. Use a deliberate viewBox and preserve the intended aspect ratio; do not stretch stationery or accessories to fill arbitrary rectangles.
+2. Keep isolated accessories transparent outside their silhouette.
+3. Keep live labels, counts, and user content out of SVG artwork.
+4. Use a consistent upper-left key light and a restrained shadow. Avoid baking a second shadow into artwork when the component already supplies one.
+5. Keep material texture subtle enough that small text remains legible on phone screens.
+6. Test each object at small, medium, and large sizes on a narrow viewport.
+7. Confirm that the asset remains recognizable in all nine theme treatments.
+
+## Known art gaps
+
+The current vector set is a functional placeholder library, not finished production illustration. Highest-value upgrades are:
+- Replace the stylized walnut vector with the approved high-resolution photographic wood surface.
+- Redraw the folder and paper masters so shadow, edge, material, and color can be varied independently.
+- Refine the scene environments with stronger perspective, depth, and deliberately reserved content zones.
+- Expand accessory silhouettes while keeping the same object categories available in every theme.
