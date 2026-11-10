@@ -11,7 +11,7 @@ import clockFaceAsset from "./assets/clocks/clock-face.svg";
 import hourHandAsset from "./assets/clocks/hour-hand.svg";
 import minuteHandAsset from "./assets/clocks/minute-hand.svg";
 import secondHandAsset from "./assets/clocks/second-hand.svg";
-import { collectionFinishes, paperFinishes } from "./assets/manifest";
+import { collectionFinishes, paperFinishes, deskAccessories } from "./assets/manifest";
 import { themeTokens } from "./assets/theme-system";
 
 const STORAGE_KEY = "somewhere.workspace.v1";
@@ -99,6 +99,10 @@ function App() {
   const [draft, setDraft] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [themePickerOpen, setThemePickerOpen] = useState(false);
+  const [accessoryPickerOpen, setAccessoryPickerOpen] = useState(false);
+  const [visibleAccessories, setVisibleAccessories] = useState<string[]>(() => {
+    try { const saved = localStorage.getItem("somewhere.accessories.v1"); return saved ? JSON.parse(saved) as string[] : ["coffee-cup","potted-plant"]; } catch { return ["coffee-cup","potted-plant"]; }
+  });
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [movePickerOpen, setMovePickerOpen] = useState(false);
   const [draggingId, setDraggingId] = useState<string | null>(null);
@@ -117,6 +121,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ objects }));
   }, [objects]);
+
+  useEffect(() => {
+    localStorage.setItem("somewhere.accessories.v1", JSON.stringify(visibleAccessories));
+  }, [visibleAccessories]);
 
   const activeCollection = path.length ? findObject(objects, path[path.length - 1]) : undefined;
   const currentObjects = activeCollection?.children ?? objects;
@@ -293,8 +301,11 @@ function App() {
       </section>
 
       <p className="arrange-hint"><GripVertical size={12}/> Press and hold an object to arrange it</p><aside className="perimeter" aria-label="Desk accessories">
-        <div className="perimeter-item"><img className="accessory-cup" src={coffeeCupAsset} alt="Ceramic coffee cup"/><span>take a breath</span></div>
-        <div className="perimeter-item"><img className="accessory-plant" src={plantAsset} alt="Potted plant"/><span>make room</span></div>
+        {visibleAccessories.map(id => {
+          const accessory = deskAccessories.find(item => item.id === id);
+          if (!accessory) return null;
+          return <div className={`perimeter-item accessory-${id}`} key={id}><img src={accessory.src} alt={accessory.label}/></div>;
+        })}
         <div className="perimeter-item clock-perimeter" aria-label={`Local time ${clockNow.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}`}><div className="desk-clock"><img src={clockFaceAsset} alt=""/><img className="clock-hand" src={hourHandAsset} style={{transform:`rotate(${hourAngle}deg)`}} alt=""/><img className="clock-hand" src={minuteHandAsset} style={{transform:`rotate(${minuteAngle}deg)`}} alt=""/><img className="clock-hand" src={secondHandAsset} style={{transform:`rotate(${secondAngle}deg)`}} alt=""/></div><span>{clockNow.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}</span></div>
       </aside>
 
@@ -311,7 +322,7 @@ function App() {
         <div className="fan-panel customize-panel">
           <button className="fan-choice" onClick={() => { setThemePickerOpen(true); setFan(null); }}><span><Paintbrush2 size={18} /></span><small>Theme style</small></button>
           {["Paper", "Accessories", "Layout", "Lighting", "Typography", "Environment"].map(label => (
-            <button key={label} className="fan-choice" onClick={() => setFan(null)}><span><Paintbrush2 size={18} /></span><small>{label}</small></button>
+            <button key={label} className="fan-choice" onClick={() => { if(label === "Accessories") { setAccessoryPickerOpen(true); setFan(null); } else if(label === "Paper") { setSelectedId(currentObjects.find(item=>item.kind==="note"||item.kind==="checklist")?.id ?? null); setFan(null); } else setFan(null); }}><span><Paintbrush2 size={18} /></span><small>{label}</small></button>
           ))}
         </div>
       )}
@@ -334,6 +345,19 @@ function App() {
         <button className="delete-action" onClick={deleteSelected}><Trash2/>Delete</button>
       </section></div>}
       {movePickerOpen && selectedObject && <div className="note-overlay" onClick={()=>setMovePickerOpen(false)}><section className="theme-sheet" onClick={e=>e.stopPropagation()}><button className="note-close icon-button" onClick={()=>setMovePickerOpen(false)} aria-label="Close"><X/></button><p className="eyebrow">MOVE OBJECT</p><h2>Choose a destination</h2><div className="theme-options"><button className="theme-option" onClick={()=>moveSelectedTo(null)}>My desk</button>{(function list(items:SceneObject[],depth=0):React.ReactNode[]{return items.flatMap(item=>item.kind==="collection"?[<button key={item.id} className="theme-option" style={{paddingLeft:14+depth*14}} disabled={containsObject(selectedObject,item.id)} onClick={()=>moveSelectedTo(item.id)}>{item.title}</button>,...(item.children?list(item.children,depth+1):[])]:[]);})(objects)}</div></section></div>}
+      {accessoryPickerOpen && (
+        <div className="note-overlay" onClick={() => setAccessoryPickerOpen(false)}>
+          <section className="theme-sheet accessory-sheet" onClick={e => e.stopPropagation()}>
+            <button className="note-close icon-button" onClick={() => setAccessoryPickerOpen(false)} aria-label="Close accessories"><X /></button>
+            <p className="eyebrow">DESK DETAILS</p>
+            <h2>Accessories</h2>
+            <p className="theme-explainer">Choose what lives around the edge of your desk. These stay out of the way of your workspace.</p>
+            <div className="accessory-options">
+              {deskAccessories.map(item => <button key={item.id} className={visibleAccessories.includes(item.id)?"active":""} onClick={() => setVisibleAccessories(current => current.includes(item.id)?current.filter(id=>id!==item.id):[...current,item.id])}><span className="accessory-swatch"><img src={item.src} alt=""/></span><span>{item.label}</span><span className="accessory-check">{visibleAccessories.includes(item.id)?"✓":"+"}</span></button>)}
+            </div>
+          </section>
+        </div>
+      )}
       {themePickerOpen && (
         <div className="note-overlay" onClick={() => setThemePickerOpen(false)}>
           <section className="theme-sheet" onClick={e => e.stopPropagation()}>
