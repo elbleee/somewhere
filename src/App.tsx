@@ -172,11 +172,18 @@ function App() {
   const objectArtwork = (item: SceneObject) => {
     if (item.kind === "collection") {
       const defaultFolderFinish: Record<string, string> = {
-        ideas: "blue",
+        ideas: "linen",
         yard: "sage",
         work: "rose"
       };
-      const finish = collectionFinishes.find(entry => entry.id === item.appearance?.finishId)
+      const legacyFinishAliases: Record<string, string> = {
+        blue: "linen",
+        cream: "sand",
+        olive: "sage"
+      };
+      const savedFinish = item.appearance?.finishId;
+      const finishId = savedFinish ? (legacyFinishAliases[savedFinish] ?? savedFinish) : undefined;
+      const finish = collectionFinishes.find(entry => entry.id === finishId)
         ?? collectionFinishes.find(entry => entry.id === defaultFolderFinish[item.id])
         ?? collectionFinishes[stableAssetIndex(item.id, collectionFinishes.length)];
       return finish.src;
