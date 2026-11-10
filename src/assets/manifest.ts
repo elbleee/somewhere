@@ -95,3 +95,29 @@ export const collectionEnvironments = [
   { id: "cabin", label: "Cabin", src: cabin, mood: "cozy" },
   { id: "night-sky", label: "Night sky", src: nightSky, mood: "dreamlike" }
 ] as const;
+
+
+import folderSilhouette from "./silhouettes/folder.svg";
+import paperSheetSilhouette from "./silhouettes/paper-sheet.svg";
+import stickyNoteSilhouette from "./silhouettes/sticky-note.svg";
+import polaroidSilhouette from "./silhouettes/polaroid.svg";
+import paperFiber from "./materials/paper-fiber.svg";
+import linenWeave from "./materials/linen-weave.svg";
+import graphPaper from "./materials/graph-paper.svg";
+import ruledPaper from "./materials/ruled-paper.svg";
+import walnutHighlight from "./materials/walnut-highlight.svg";
+
+export const objectSilhouettes = {
+  folder: folderSilhouette,
+  paperSheet: paperSheetSilhouette,
+  stickyNote: stickyNoteSilhouette,
+  polaroid: polaroidSilhouette
+} as const;
+
+export const materialOverlays = {
+  paperFiber,
+  linenWeave,
+  graphPaper,
+  ruledPaper,
+  walnutHighlight
+} as const;
