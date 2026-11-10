@@ -275,6 +275,10 @@ function App() {
   return (
     <main className={`app-shell home-concept theme-${currentTheme}`} style={themeVariables}>
       <div className={`desk-surface ${environmentClass} ${lightingClass}`} aria-hidden="true" />
+      {!activeCollection && <div className="desk-corner-props" aria-hidden="true">
+        <img className="corner-plant" src={deskAccessories.find(item => item.id === "potted-plant")?.src} alt="" />
+        <img className="corner-coffee" src={deskAccessories.find(item => item.id === "coffee-cup")?.src} alt="" />
+      </div>}
       <header className="topbar concept-topbar">
         <button className="concept-icon-button" onClick={() => setFan(fan === "customize" ? null : "customize")} aria-label="Open menu"><Menu /></button>
         <div className="concept-wordmark" onClick={() => navigateTo(0)} role="button" tabIndex={0}>somewhere<span>®</span><i /></div>
