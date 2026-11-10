@@ -29,6 +29,7 @@ export interface SceneObject {
   position: number;
   size: ObjectSize;
   theme?: ThemeId;
+  environment?: "meadow" | "outer-space" | "studio" | "library" | "cabin" | "night-sky" | null;
   children?: SceneObject[];
   createdAt?: string;
   updatedAt?: string;
