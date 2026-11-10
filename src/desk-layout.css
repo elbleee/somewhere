@@ -360,3 +360,42 @@
   .tool-dock .add-button { width: 44px; height: 44px; }
   .fan-panel { max-width: 94vw; overflow-x: auto; }
 }
+
+
+/* Material layer: the asset catalog textures sit between the object finish and live content. */
+.object-artwork { z-index: 0; }
+.object-material {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  background-position: center;
+  background-repeat: repeat;
+  opacity: .16;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.object-material-checklist { background-size: 22px 22px; opacity: .38; }
+.object-material-reminder { background-size: 100% 26px; opacity: .28; background-repeat: repeat-y; }
+.object-material-photo { inset: 10px 10px 38px; background-size: 90px 90px; opacity: .1; }
+.object-content { z-index: 2; }
+.object-content-collection { padding-top: 35px; }
+.object-content-collection .collection-enter { margin-top: auto; }
+.object-content-photo .object-media { flex: 1 1 auto; min-height: 0; }
+.object-content-photo .object-title { flex: 0 0 auto; margin-top: 0; }
+.object-content-photo .object-subtitle { flex: 0 0 auto; }
+@media(max-width:700px) {
+  .object-grid { gap: 16px 13px; }
+  .object-collection { min-height: 0; aspect-ratio: 1.48 / 1; }
+  .object-note { min-height: 0; aspect-ratio: 1 / 1; }
+  .object-checklist { min-height: 0; aspect-ratio: .84 / 1; }
+  .object-photo { min-height: 0; aspect-ratio: .9 / 1; }
+  .object-document,.object-reminder { min-height: 0; aspect-ratio: .9 / 1; }
+  .object-link { min-height: 0; aspect-ratio: 1 / 1; }
+  .object-content-collection { padding: 31px 15px 13px; }
+  .object-content-collection .object-title { font-size: 18px; }
+  .object-content-collection .object-subtitle { font-size: 11px; }
+  .collection-enter { font-size: 6.5px; padding-top: 7px; }
+  .object-content-note,.object-content-checklist,.object-content-document,.object-content-reminder { padding: 15px; }
+  .object-content-photo { padding: 10px 10px 13px; }
+}
