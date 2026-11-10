@@ -5,6 +5,12 @@ import {
   Link as LinkIcon, Clock3, X, ChevronRight, Home, Layers3, Copy, Trash2, Pencil, Move, GripVertical
 } from "lucide-react";
 import type { DeskObjectKind, SceneObject, ThemeId, ObjectSize } from "./types";
+import coffeeCupAsset from "./assets/accessories/coffee-cup.svg";
+import plantAsset from "./assets/accessories/potted-plant.svg";
+import clockFaceAsset from "./assets/clocks/clock-face.svg";
+import hourHandAsset from "./assets/clocks/hour-hand.svg";
+import minuteHandAsset from "./assets/clocks/minute-hand.svg";
+import secondHandAsset from "./assets/clocks/second-hand.svg";
 
 const STORAGE_KEY = "somewhere.workspace.v1";
 
@@ -116,7 +122,7 @@ function App() {
   const selectedObject = selectedId ? findObject(objects, selectedId) : undefined;
   const breadcrumbs = path.map(id => findObject(objects, id)).filter((item): item is SceneObject => Boolean(item));
   const currentTheme = activeCollection?.theme ?? "clean-textured";
-  const environmentClass = currentTheme === "surreal-atmospheric" ? "environment-space" : currentTheme === "minimal-natural" ? "environment-meadow" : currentTheme === "clean-textured" ? "environment-studio" : currentTheme === "vintage-ephemera" ? "environment-library" : currentTheme === "cinematic-realism" ? "environment-cabin" : currentTheme === "photoreal-desk" ? "environment-night" : "";
+  const environmentClass = !activeCollection ? "" : currentTheme === "surreal-atmospheric" ? "environment-space" : currentTheme === "minimal-natural" ? "environment-meadow" : currentTheme === "clean-textured" ? "environment-studio" : currentTheme === "vintage-ephemera" ? "environment-library" : currentTheme === "cinematic-realism" ? "environment-cabin" : currentTheme === "photoreal-desk" ? "environment-night" : "";
   const hourAngle = (clockNow.getHours() % 12) * 30 + clockNow.getMinutes() * .5;
   const minuteAngle = clockNow.getMinutes() * 6 + clockNow.getSeconds() * .1;
   const secondAngle = clockNow.getSeconds() * 6;
@@ -256,9 +262,9 @@ function App() {
       </section>
 
       <p className="arrange-hint"><GripVertical size={12}/> Press and hold an object to arrange it</p><aside className="perimeter" aria-label="Desk accessories">
-        <div className="perimeter-item"><img className="accessory-cup" src="./assets/accessories/coffee-cup.svg" alt="Ceramic coffee cup"/><span>take a breath</span></div>
-        <div className="perimeter-item"><img className="accessory-plant" src="./assets/accessories/potted-plant.svg" alt="Potted plant"/><span>make room</span></div>
-        <div className="perimeter-item clock-perimeter" aria-label={`Local time ${clockNow.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}`}><div className="desk-clock"><img src="./assets/clocks/clock-face.svg" alt=""/><img className="clock-hand" src="./assets/clocks/hour-hand.svg" style={{transform:`rotate(${hourAngle}deg)`}} alt=""/><img className="clock-hand" src="./assets/clocks/minute-hand.svg" style={{transform:`rotate(${minuteAngle}deg)`}} alt=""/><img className="clock-hand" src="./assets/clocks/second-hand.svg" style={{transform:`rotate(${secondAngle}deg)`}} alt=""/></div><span>{clockNow.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}</span></div>
+        <div className="perimeter-item"><img className="accessory-cup" src={coffeeCupAsset} alt="Ceramic coffee cup"/><span>take a breath</span></div>
+        <div className="perimeter-item"><img className="accessory-plant" src={plantAsset} alt="Potted plant"/><span>make room</span></div>
+        <div className="perimeter-item clock-perimeter" aria-label={`Local time ${clockNow.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}`}><div className="desk-clock"><img src={clockFaceAsset} alt=""/><img className="clock-hand" src={hourHandAsset} style={{transform:`rotate(${hourAngle}deg)`}} alt=""/><img className="clock-hand" src={minuteHandAsset} style={{transform:`rotate(${minuteAngle}deg)`}} alt=""/><img className="clock-hand" src={secondHandAsset} style={{transform:`rotate(${secondAngle}deg)`}} alt=""/></div><span>{clockNow.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}</span></div>
       </aside>
 
       {fan && <button className="scrim" onClick={() => setFan(null)} aria-label="Close options" />}
