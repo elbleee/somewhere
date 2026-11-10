@@ -323,19 +323,24 @@
   .date-stamp { display: none; }
   .object-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 13px;
+    grid-auto-rows: 184px;
+    gap: 22px 14px;
+    align-items: stretch;
   }
   .desk-object,
   .object-collection,
   .object-note, .object-checklist, .object-document,
-  .object-reminder, .object-photo { min-height: 174px; }
-  .desk-object.size-small { min-height: 142px; }
-  .desk-object.size-medium { min-height: 164px; }
-  .desk-object.size-large { min-height: 180px; }
-  .desk-object.size-wide { grid-column: span 2; min-height: 154px; }
-  .object-collection.size-small,
-  .object-collection.size-medium,
-  .object-collection.size-large { min-height: 174px; }
+  .object-reminder, .object-photo, .object-link {
+    grid-column: auto;
+    height: 184px;
+    min-height: 184px;
+    max-height: 184px;
+    aspect-ratio: auto;
+  }
+  .desk-object.size-small,
+  .desk-object.size-medium,
+  .desk-object.size-large { height:184px;min-height:184px;max-height:184px; }
+  .desk-object.size-wide { grid-column: span 2; height:164px;min-height:164px;max-height:164px; }
   .object-content-collection { padding: 56px 16px 15px; }
   .object-content-collection .object-title { font-size: 19px; }
   .object-content-collection .object-subtitle { font-size: 11px; }
