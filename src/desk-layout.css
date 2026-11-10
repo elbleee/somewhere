@@ -640,3 +640,35 @@
   .concept-dock .concept-add{width:55px;height:55px}
   .concept-dock .concept-add svg{width:28px;height:28px}
 }
+
+
+/* Refine the first phone preview: remove accidental emoji styling and prevent nav overlap. */
+.home-object-grid .folder-emblem {
+  font-family: "Playfair Display", Georgia, serif;
+  font-variant-emoji: text;
+  color: rgba(65,52,37,.68);
+  font-size: 27px;
+  line-height: 1;
+}
+.home-object-grid .folder-emblem-ideas,
+.home-object-grid .folder-emblem-work { font-family: Georgia,serif; }
+.desk-corner-props { display:none; }
+.home-concept .workspace { padding-bottom: 34px; }
+.concept-dock {
+  position:sticky;
+  left:auto;
+  bottom:8px;
+  transform:none;
+  margin:34px auto calc(12px + env(safe-area-inset-bottom));
+}
+@media(max-width:700px) {
+  .home-concept .workspace { padding-bottom:20px; }
+  .home-object-grid { gap:20px 12px; }
+  .home-object-grid .desk-object { height:196px; min-height:196px; max-height:196px; }
+  .concept-dock {
+    position:sticky;
+    bottom:8px;
+    margin:26px auto calc(10px + env(safe-area-inset-bottom));
+    width:calc(100vw - 28px);
+  }
+}
