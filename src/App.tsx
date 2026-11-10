@@ -336,7 +336,7 @@ function App() {
                 ) : (
                   <span className="object-icon">{item.kind === "collection" ? null : iconFor(item.kind)}</span>
                 )}
-                {item.kind === "collection" && <span className="folder-count">{item.children?.length ?? 0} ITEMS</span>}
+                {item.kind === "collection" && <span className="folder-count">{item.children?.length ?? 0} {item.children?.length === 1 ? "ITEM" : "ITEMS"}</span>}
                 <span className="object-title">{item.title}</span>
                 <span className="object-subtitle">{item.subtitle}</span>
               </span>
